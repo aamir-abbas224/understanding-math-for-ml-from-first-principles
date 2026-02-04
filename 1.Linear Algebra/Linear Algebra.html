@@ -1,0 +1,4980 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Linear Algebra</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+/* From extension bierner.markdown-checkbox */
+.contains-task-list {
+    padding-left: 0;
+}
+
+.contains-task-list li {
+    margin-left: 24px;
+}
+
+.contains-task-list .task-list-item {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.contains-task-list .contains-task-list {
+    padding-left: 20px;
+} 
+/* From extension bierner.markdown-preview-github-styles */
+html,
+body,
+.github-markdown-body {
+    padding: 0 !important;
+    max-width: auto !important;
+}
+
+.github-markdown-body {
+    background-color: var(--bgColor-default);
+    color: var(--fgColor-default);
+}
+
+.github-markdown-body {
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    margin: 0 auto;
+    width: 100% !important;
+}
+
+.github-markdown-content {
+    padding: 32px !important;
+    max-width: 980px;
+    min-width: 200px;
+    margin: 0 auto;
+}
+
+
+.vscode-body.scrollBeyondLastLine {
+    margin-bottom: 0;
+}
+/*
+ * Other extensions may reuse the markdown render function for embedding additional documents
+ * creating multiple .github-markdown-body elements so this should only apply to the top one
+ */
+.vscode-body.scrollBeyondLastLine > .markdown-body > .github-markdown-body {
+    padding-bottom: calc(100vh + 10px) !important;
+}
+
+.github-markdown-body blockquote {
+    background-color: initial;
+}
+
+.github-markdown-body pre {
+    color: initial;
+    border: none;
+}
+
+.github-markdown-body code {
+    color: inherit;
+}
+
+.github-markdown-body pre code {
+    color: initial;
+}
+
+.github-markdown-body code > div {
+    background: none
+}
+
+.github-markdown-body.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.github-markdown-body p,
+.github-markdown-body blockquote,
+.github-markdown-body ul,
+.github-markdown-body ol,
+.github-markdown-body dl,
+.github-markdown-body table,
+.github-markdown-body pre {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+:is(.vscode-dark, .vscode-light).showEditorSelection .code-active-line:before {
+    border-left: 3px solid var(--borderColor-default);
+}
+:is(.vscode-dark, .vscode-light).showEditorSelection .code-line:hover:before {
+    border-left: 3px solid var(--fgColor-muted);
+}
+
+.github-markdown-body {
+  /* Ideal for movement that starts on the page and ends off the page. */
+  /* Ideal for movement that starts and ends on the page. */
+  /* Ideal for movement that starts off the page and ends on the page. */
+  /* Ideal for non-movement properties, like opacity or background color. */
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  margin: 0;
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-default);
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.github-markdown-body .octicon {
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: text-bottom;
+}
+
+.github-markdown-body h1:hover .anchor .octicon-link:before,
+.github-markdown-body h2:hover .anchor .octicon-link:before,
+.github-markdown-body h3:hover .anchor .octicon-link:before,
+.github-markdown-body h4:hover .anchor .octicon-link:before,
+.github-markdown-body h5:hover .anchor .octicon-link:before,
+.github-markdown-body h6:hover .anchor .octicon-link:before {
+  width: 16px;
+  height: 16px;
+  content: ' ';
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+  mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+}
+
+.github-markdown-body details,
+.github-markdown-body figcaption,
+.github-markdown-body figure {
+  display: block;
+}
+
+.github-markdown-body summary {
+  display: list-item;
+}
+
+.github-markdown-body [hidden] {
+  display: none !important;
+}
+
+.github-markdown-body a {
+  background-color: transparent;
+  color: var(--fgColor-accent);
+  text-decoration: none;
+}
+
+.github-markdown-body abbr[title] {
+  border-bottom: none;
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+}
+
+.github-markdown-body b,
+.github-markdown-body strong {
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.github-markdown-body dfn {
+  font-style: italic;
+}
+
+.github-markdown-body h1 {
+  margin: .67em 0;
+  font-weight: var(--base-text-weight-semibold, 600);
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid var(--borderColor-muted);
+}
+
+.github-markdown-body mark {
+  background-color: var(--bgColor-attention-muted);
+  color: var(--fgColor-default);
+}
+
+.github-markdown-body small {
+  font-size: 90%;
+}
+
+.github-markdown-body sub,
+.github-markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.github-markdown-body sub {
+  bottom: -0.25em;
+}
+
+.github-markdown-body sup {
+  top: -0.5em;
+}
+
+.github-markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.github-markdown-body code,
+.github-markdown-body kbd,
+.github-markdown-body pre,
+.github-markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.github-markdown-body figure {
+  margin: 1em var(--base-size-40);
+}
+
+.github-markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  background: transparent;
+  border-bottom: 1px solid var(--borderColor-muted);
+  height: .25em;
+  padding: 0;
+  margin: var(--base-size-24) 0;
+  background-color: var(--borderColor-default);
+  border: 0;
+}
+
+.github-markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.github-markdown-body [type=button],
+.github-markdown-body [type=reset],
+.github-markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.github-markdown-body [type=checkbox],
+.github-markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.github-markdown-body [type=number]::-webkit-inner-spin-button,
+.github-markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.github-markdown-body [type=search]::-webkit-search-cancel-button,
+.github-markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.github-markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.github-markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.github-markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.github-markdown-body ::placeholder {
+  color: var(--fgColor-muted);
+  opacity: 1;
+}
+
+.github-markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.github-markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.github-markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.github-markdown-body td,
+.github-markdown-body th {
+  padding: 0;
+}
+
+.github-markdown-body details summary {
+  cursor: pointer;
+}
+
+.github-markdown-body a:focus,
+.github-markdown-body [role=button]:focus,
+.github-markdown-body input[type=radio]:focus,
+.github-markdown-body input[type=checkbox]:focus {
+  outline: 2px solid var(--focus-outlineColor);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.github-markdown-body a:focus:not(:focus-visible),
+.github-markdown-body [role=button]:focus:not(:focus-visible),
+.github-markdown-body input[type=radio]:focus:not(:focus-visible),
+.github-markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.github-markdown-body a:focus-visible,
+.github-markdown-body [role=button]:focus-visible,
+.github-markdown-body input[type=radio]:focus-visible,
+.github-markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid var(--focus-outlineColor);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.github-markdown-body a:not([class]):focus,
+.github-markdown-body a:not([class]):focus-visible,
+.github-markdown-body input[type=radio]:focus,
+.github-markdown-body input[type=radio]:focus-visible,
+.github-markdown-body input[type=checkbox]:focus,
+.github-markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.github-markdown-body kbd {
+  display: inline-block;
+  padding: var(--base-size-4);
+  font: 11px var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  line-height: 10px;
+  color: var(--fgColor-default);
+  vertical-align: middle;
+  background-color: var(--bgColor-muted);
+  border: solid 1px var(--borderColor-neutral-muted);
+  border-bottom-color: var(--borderColor-neutral-muted);
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 var(--borderColor-neutral-muted);
+}
+
+.github-markdown-body h1,
+.github-markdown-body h2,
+.github-markdown-body h3,
+.github-markdown-body h4,
+.github-markdown-body h5,
+.github-markdown-body h6 {
+  margin-top: var(--base-size-24);
+  margin-bottom: var(--base-size-16);
+  font-weight: var(--base-text-weight-semibold, 600);
+  line-height: 1.25;
+}
+
+.github-markdown-body h2 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid var(--borderColor-muted);
+}
+
+.github-markdown-body h3 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: 1.25em;
+}
+
+.github-markdown-body h4 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: 1em;
+}
+
+.github-markdown-body h5 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: .875em;
+}
+
+.github-markdown-body h6 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: .85em;
+  color: var(--fgColor-muted);
+}
+
+.github-markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.github-markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: var(--fgColor-muted);
+  border-left: .25em solid var(--borderColor-default);
+}
+
+.github-markdown-body ul,
+.github-markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.github-markdown-body ol ol,
+.github-markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.github-markdown-body ul ul ol,
+.github-markdown-body ul ol ol,
+.github-markdown-body ol ul ol,
+.github-markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.github-markdown-body dd {
+  margin-left: 0;
+}
+
+.github-markdown-body tt,
+.github-markdown-body code,
+.github-markdown-body samp {
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  font-size: 12px;
+}
+
+.github-markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.github-markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.github-markdown-body .Box-body.scrollable-overlay {
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.github-markdown-body .Box-body .help {
+  padding-top: var(--base-size-8);
+  margin: 0;
+  color: var(--fgColor-muted);
+  text-align: center;
+}
+
+.github-markdown-body input::-webkit-outer-spin-button,
+.github-markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.github-markdown-body .border-0 {
+  border: 0 !important;
+}
+
+.github-markdown-body .color-fg-muted {
+  color: var(--fgColor-muted) !important;
+}
+
+.github-markdown-body .color-bg-default {
+  background-color: var(--bgColor-default) !important;
+}
+
+.github-markdown-body .mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.github-markdown-body .mr-2 {
+  margin-right: var(--base-size-8, 8px) !important;
+}
+
+.github-markdown-body .my-2 {
+  margin-top: var(--base-size-8, 8px) !important;
+  margin-bottom: var(--base-size-8, 8px) !important;
+}
+
+.github-markdown-body .p-0 {
+  padding: 0 !important;
+}
+
+.github-markdown-body .py-0 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.github-markdown-body .px-3 {
+  padding-right: var(--base-size-16, 16px) !important;
+  padding-left: var(--base-size-16, 16px) !important;
+}
+
+.github-markdown-body .f6 {
+  font-size: var(--h6-size, 12px) !important;
+}
+
+.github-markdown-body .text-bold {
+  font-weight: var(--base-text-weight-semibold, 600) !important;
+}
+
+.github-markdown-body .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: rect(0 0 0 0);
+  overflow-wrap: normal;
+  border: 0;
+}
+
+.github-markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.github-markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.github-markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.github-markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.github-markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.github-markdown-body .absent {
+  color: var(--fgColor-danger);
+}
+
+.github-markdown-body .anchor {
+  float: left;
+  padding-right: var(--base-size-4);
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.github-markdown-body .anchor:focus {
+  outline: none;
+}
+
+.github-markdown-body p,
+.github-markdown-body blockquote,
+.github-markdown-body ul,
+.github-markdown-body ol,
+.github-markdown-body dl,
+.github-markdown-body table,
+.github-markdown-body pre,
+.github-markdown-body details {
+  margin-top: 0;
+  margin-bottom: var(--base-size-16);
+}
+
+.github-markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.github-markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.github-markdown-body h1 .octicon-link,
+.github-markdown-body h2 .octicon-link,
+.github-markdown-body h3 .octicon-link,
+.github-markdown-body h4 .octicon-link,
+.github-markdown-body h5 .octicon-link,
+.github-markdown-body h6 .octicon-link {
+  color: var(--fgColor-default);
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+.github-markdown-body h1:hover .anchor,
+.github-markdown-body h2:hover .anchor,
+.github-markdown-body h3:hover .anchor,
+.github-markdown-body h4:hover .anchor,
+.github-markdown-body h5:hover .anchor,
+.github-markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.github-markdown-body h1:hover .anchor .octicon-link,
+.github-markdown-body h2:hover .anchor .octicon-link,
+.github-markdown-body h3:hover .anchor .octicon-link,
+.github-markdown-body h4:hover .anchor .octicon-link,
+.github-markdown-body h5:hover .anchor .octicon-link,
+.github-markdown-body h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+
+.github-markdown-body h1 tt,
+.github-markdown-body h1 code,
+.github-markdown-body h2 tt,
+.github-markdown-body h2 code,
+.github-markdown-body h3 tt,
+.github-markdown-body h3 code,
+.github-markdown-body h4 tt,
+.github-markdown-body h4 code,
+.github-markdown-body h5 tt,
+.github-markdown-body h5 code,
+.github-markdown-body h6 tt,
+.github-markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.github-markdown-body summary h1,
+.github-markdown-body summary h2,
+.github-markdown-body summary h3,
+.github-markdown-body summary h4,
+.github-markdown-body summary h5,
+.github-markdown-body summary h6 {
+  display: inline-block;
+}
+
+.github-markdown-body summary h1 .anchor,
+.github-markdown-body summary h2 .anchor,
+.github-markdown-body summary h3 .anchor,
+.github-markdown-body summary h4 .anchor,
+.github-markdown-body summary h5 .anchor,
+.github-markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.github-markdown-body summary h1,
+.github-markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.github-markdown-body ul.no-list,
+.github-markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.github-markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.github-markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.github-markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.github-markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.github-markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.github-markdown-body div>ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.github-markdown-body ul ul,
+.github-markdown-body ul ol,
+.github-markdown-body ol ol,
+.github-markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.github-markdown-body li>p {
+  margin-top: var(--base-size-16);
+}
+
+.github-markdown-body li+li {
+  margin-top: .25em;
+}
+
+.github-markdown-body dl {
+  padding: 0;
+}
+
+.github-markdown-body dl dt {
+  padding: 0;
+  margin-top: var(--base-size-16);
+  font-size: 1em;
+  font-style: italic;
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.github-markdown-body dl dd {
+  padding: 0 var(--base-size-16);
+  margin-bottom: var(--base-size-16);
+}
+
+.github-markdown-body table th {
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.github-markdown-body table th,
+.github-markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid var(--borderColor-default);
+}
+
+.github-markdown-body table td>:last-child {
+  margin-bottom: 0;
+}
+
+.github-markdown-body table tr {
+  background-color: var(--bgColor-default);
+  border-top: 1px solid var(--borderColor-muted);
+}
+
+.github-markdown-body table tr:nth-child(2n) {
+  background-color: var(--bgColor-muted);
+}
+
+.github-markdown-body table img {
+  background-color: transparent;
+}
+
+.github-markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.github-markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.github-markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.github-markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.github-markdown-body span.frame>span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid var(--borderColor-default);
+}
+
+.github-markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.github-markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: var(--fgColor-default);
+}
+
+.github-markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.github-markdown-body span.align-center>span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.github-markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.github-markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.github-markdown-body span.align-right>span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.github-markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.github-markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.github-markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.github-markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.github-markdown-body span.float-right>span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.github-markdown-body code,
+.github-markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: var(--bgColor-neutral-muted);
+  border-radius: 6px;
+}
+
+.github-markdown-body code br,
+.github-markdown-body tt br {
+  display: none;
+}
+
+.github-markdown-body del code {
+  text-decoration: inherit;
+}
+
+.github-markdown-body samp {
+  font-size: 85%;
+}
+
+.github-markdown-body pre code {
+  font-size: 100%;
+}
+
+.github-markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.github-markdown-body .highlight {
+  margin-bottom: var(--base-size-16);
+}
+
+.github-markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.github-markdown-body .highlight pre,
+.github-markdown-body pre {
+  padding: var(--base-size-16);
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-muted);
+  border-radius: 6px;
+}
+
+.github-markdown-body pre code,
+.github-markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.github-markdown-body .csv-data td,
+.github-markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.github-markdown-body .csv-data .blob-num {
+  padding: 10px var(--base-size-8) 9px;
+  text-align: right;
+  background: var(--bgColor-default);
+  border: 0;
+}
+
+.github-markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.github-markdown-body .csv-data th {
+  font-weight: var(--base-text-weight-semibold, 600);
+  background: var(--bgColor-muted);
+  border-top: 0;
+}
+
+.github-markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.github-markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.github-markdown-body .footnotes {
+  font-size: 12px;
+  color: var(--fgColor-muted);
+  border-top: 1px solid var(--borderColor-default);
+}
+
+.github-markdown-body .footnotes ol {
+  padding-left: var(--base-size-16);
+}
+
+.github-markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: var(--base-size-16);
+  margin-top: var(--base-size-16);
+}
+
+.github-markdown-body .footnotes li {
+  position: relative;
+}
+
+.github-markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(var(--base-size-8)*-1);
+  right: calc(var(--base-size-8)*-1);
+  bottom: calc(var(--base-size-8)*-1);
+  left: calc(var(--base-size-24)*-1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid var(--borderColor-accent-emphasis);
+  border-radius: 6px;
+}
+
+.github-markdown-body .footnotes li:target {
+  color: var(--fgColor-default);
+}
+
+.github-markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.github-markdown-body .Box {
+  background-color: var(--bgColor-default);
+  border-color: var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  border-style: solid;
+  border-width: var(--borderWidth-thin);
+}
+
+.github-markdown-body .Box--condensed {
+  line-height: 1.25;
+}
+
+.github-markdown-body .Box--condensed .Box-body,
+.github-markdown-body .Box--condensed .Box-footer,
+.github-markdown-body .Box--condensed .Box-header {
+  padding: var(--stack-padding-condensed) var(--stack-padding-normal);
+}
+
+.github-markdown-body .Box--condensed .Box-row {
+  padding: var(--stack-padding-condensed) var(--stack-padding-normal);
+}
+
+.github-markdown-body .Box-header {
+  background-color: var(--bgColor-muted);
+  border-color: var(--borderColor-default);
+  border-style: solid;
+  border-top-left-radius: var(--borderRadius-medium);
+  border-top-right-radius: var(--borderRadius-medium);
+  border-width: var(--borderWidth-thin);
+  margin: calc(var(--borderWidth-thin)*-1) calc(var(--borderWidth-thin)*-1) 0;
+  padding: var(--stack-padding-normal);
+}
+
+.github-markdown-body .Box-body {
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  padding: var(--stack-padding-normal);
+}
+
+.github-markdown-body .Box-body:last-of-type {
+  border-bottom-left-radius: var(--borderRadius-medium);
+  border-bottom-right-radius: var(--borderRadius-medium);
+  margin-bottom: calc(var(--borderWidth-thin)*-1);
+}
+
+.github-markdown-body .pl-c {
+  color: var(--color-prettylights-syntax-comment);
+}
+
+.github-markdown-body .pl-c1,
+.github-markdown-body .pl-s .pl-v {
+  color: var(--color-prettylights-syntax-constant);
+}
+
+.github-markdown-body .pl-e,
+.github-markdown-body .pl-en {
+  color: var(--color-prettylights-syntax-entity);
+}
+
+.github-markdown-body .pl-smi,
+.github-markdown-body .pl-s .pl-s1 {
+  color: var(--color-prettylights-syntax-storage-modifier-import);
+}
+
+.github-markdown-body .pl-ent {
+  color: var(--color-prettylights-syntax-entity-tag);
+}
+
+.github-markdown-body .pl-k {
+  color: var(--color-prettylights-syntax-keyword);
+}
+
+.github-markdown-body .pl-s,
+.github-markdown-body .pl-pds,
+.github-markdown-body .pl-s .pl-pse .pl-s1,
+.github-markdown-body .pl-sr,
+.github-markdown-body .pl-sr .pl-cce,
+.github-markdown-body .pl-sr .pl-sre,
+.github-markdown-body .pl-sr .pl-sra {
+  color: var(--color-prettylights-syntax-string);
+}
+
+.github-markdown-body .pl-v,
+.github-markdown-body .pl-smw {
+  color: var(--color-prettylights-syntax-variable);
+}
+
+.github-markdown-body .pl-bu {
+  color: var(--color-prettylights-syntax-brackethighlighter-unmatched);
+}
+
+.github-markdown-body .pl-ii {
+  color: var(--color-prettylights-syntax-invalid-illegal-text);
+  background-color: var(--color-prettylights-syntax-invalid-illegal-bg);
+}
+
+.github-markdown-body .pl-c2 {
+  color: var(--color-prettylights-syntax-carriage-return-text);
+  background-color: var(--color-prettylights-syntax-carriage-return-bg);
+}
+
+.github-markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-string-regexp);
+}
+
+.github-markdown-body .pl-ml {
+  color: var(--color-prettylights-syntax-markup-list);
+}
+
+.github-markdown-body .pl-mh,
+.github-markdown-body .pl-mh .pl-en,
+.github-markdown-body .pl-ms {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-markup-heading);
+}
+
+.github-markdown-body .pl-mi {
+  font-style: italic;
+  color: var(--color-prettylights-syntax-markup-italic);
+}
+
+.github-markdown-body .pl-mb {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-markup-bold);
+}
+
+.github-markdown-body .pl-md {
+  color: var(--color-prettylights-syntax-markup-deleted-text);
+  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+}
+
+.github-markdown-body .pl-mi1 {
+  color: var(--color-prettylights-syntax-markup-inserted-text);
+  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
+}
+
+.github-markdown-body .pl-mc {
+  color: var(--color-prettylights-syntax-markup-changed-text);
+  background-color: var(--color-prettylights-syntax-markup-changed-bg);
+}
+
+.github-markdown-body .pl-mi2 {
+  color: var(--color-prettylights-syntax-markup-ignored-text);
+  background-color: var(--color-prettylights-syntax-markup-ignored-bg);
+}
+
+.github-markdown-body .pl-mdr {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-meta-diff-range);
+}
+
+.github-markdown-body .pl-ba {
+  color: var(--color-prettylights-syntax-brackethighlighter-angle);
+}
+
+.github-markdown-body .pl-sg {
+  color: var(--color-prettylights-syntax-sublimelinter-gutter-mark);
+}
+
+.github-markdown-body .pl-corl {
+  text-decoration: underline;
+  color: var(--color-prettylights-syntax-constant-other-reference-link);
+}
+
+.github-markdown-body [role=button]:focus:not(:focus-visible),
+.github-markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.github-markdown-body button:focus:not(:focus-visible),
+.github-markdown-body summary:focus:not(:focus-visible),
+.github-markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.github-markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.github-markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.github-markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: var(--base-text-weight-normal, 400);
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.github-markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.github-markdown-body .commit-tease-sha {
+  display: inline-block;
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  font-size: 90%;
+  color: var(--fgColor-default);
+}
+
+.github-markdown-body .blob-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.github-markdown-body .blob-wrapper table tr:nth-child(2n) {
+  background-color: transparent;
+}
+
+.github-markdown-body .blob-wrapper-embedded {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.github-markdown-body .blob-num {
+  position: relative;
+  width: 1%;
+  min-width: 50px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--fgColor-muted);
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: top;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.github-markdown-body .blob-num:hover {
+  color: var(--fgColor-default);
+}
+
+.github-markdown-body .blob-num::before {
+  content: attr(data-line-number);
+}
+
+.github-markdown-body .blob-num.non-expandable {
+  cursor: default;
+}
+
+.github-markdown-body .blob-num.non-expandable:hover {
+  color: var(--fgColor-muted);
+}
+
+.github-markdown-body .blob-code {
+  position: relative;
+  padding-right: 10px;
+  padding-left: 10px;
+  line-height: 20px;
+  vertical-align: top;
+}
+
+.github-markdown-body .blob-code-inner {
+  display: table-cell;
+  overflow: visible;
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  font-size: 12px;
+  color: var(--fgColor-default);
+  word-wrap: anywhere;
+  white-space: pre;
+}
+
+.github-markdown-body .blob-code-inner .x-first {
+  border-top-left-radius: .2em;
+  border-bottom-left-radius: .2em;
+}
+
+.github-markdown-body .blob-code-inner .x-last {
+  border-top-right-radius: .2em;
+  border-bottom-right-radius: .2em;
+}
+
+.github-markdown-body .blob-code-inner.highlighted,
+.github-markdown-body .blob-code-inner .highlighted {
+  background-color: var(--bgColor-attention-muted);
+  box-shadow: inset 2px 0 0 var(--borderColor-attention-muted);
+}
+
+.github-markdown-body .blob-code-inner::selection,
+.github-markdown-body .blob-code-inner *::selection {
+  background-color: var(--selection-bgColor);
+}
+
+.github-markdown-body .blob-code-inner.blob-code-addition,
+.github-markdown-body .blob-code-inner.blob-code-deletion {
+  position: relative;
+  padding-left: 22px !important;
+}
+
+.github-markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.github-markdown-body .task-list-item label {
+  font-weight: var(--base-text-weight-normal, 400);
+}
+
+.github-markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.github-markdown-body .task-list-item+.task-list-item {
+  margin-top: var(--base-size-4);
+}
+
+.github-markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.github-markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.github-markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.github-markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.github-markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.github-markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.github-markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.github-markdown-body .markdown-alert {
+  padding: var(--base-size-8) var(--base-size-16);
+  margin-bottom: var(--base-size-16);
+  color: inherit;
+  border-left: .25em solid var(--borderColor-default);
+}
+
+.github-markdown-body .markdown-alert>:first-child {
+  margin-top: 0;
+}
+
+.github-markdown-body .markdown-alert>:last-child {
+  margin-bottom: 0;
+}
+
+.github-markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: var(--base-text-weight-medium, 500);
+  align-items: center;
+  line-height: 1;
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: var(--borderColor-accent-emphasis);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--fgColor-accent);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: var(--borderColor-done-emphasis);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--fgColor-done);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: var(--borderColor-attention-emphasis);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--fgColor-attention);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: var(--borderColor-success-emphasis);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--fgColor-success);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: var(--borderColor-danger-emphasis);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--fgColor-danger);
+}
+
+.github-markdown-body>*:first-child>.heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.github-markdown-body .tab-size[data-tab-size="1"] {
+  tab-size: 1;
+}
+
+.github-markdown-body .tab-size[data-tab-size="2"] {
+  tab-size: 2;
+}
+
+.github-markdown-body .tab-size[data-tab-size="3"] {
+  tab-size: 3;
+}
+
+.github-markdown-body .tab-size[data-tab-size="4"] {
+  tab-size: 4;
+}
+
+.github-markdown-body .tab-size[data-tab-size="5"] {
+  tab-size: 5;
+}
+
+.github-markdown-body .tab-size[data-tab-size="6"] {
+  tab-size: 6;
+}
+
+.github-markdown-body .tab-size[data-tab-size="7"] {
+  tab-size: 7;
+}
+
+.github-markdown-body .tab-size[data-tab-size="8"] {
+  tab-size: 8;
+}
+
+.github-markdown-body .tab-size[data-tab-size="9"] {
+  tab-size: 9;
+}
+
+.github-markdown-body .tab-size[data-tab-size="10"] {
+  tab-size: 10;
+}
+
+.github-markdown-body .tab-size[data-tab-size="11"] {
+  tab-size: 11;
+}
+
+.github-markdown-body .tab-size[data-tab-size="12"] {
+  tab-size: 12;
+}
+
+.github-markdown-body .Box .section-focus .preview-section {
+  display: none;
+}
+
+.github-markdown-body .Box .section-focus .edit-section {
+  display: block;
+}
+
+.github-markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+.markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode=light][data-light-theme=light],
+[data-color-mode=dark][data-dark-theme=light],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=light],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=light] {
+  /* light */
+  color-scheme: light;
+  --fgColor-danger: #d1242f;
+  --bgColor-attention-muted: #fff8c5;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-attention-muted: #d4a72c66;
+  --borderColor-danger-emphasis: #cf222e;
+  --borderColor-default: #d1d9e0;
+  --borderColor-done-emphasis: #8250df;
+  --borderColor-success-emphasis: #1a7f37;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-string-regexp: #116329;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #953800;
+  --fgColor-accent: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-done: #8250df;
+  --fgColor-muted: #59636e;
+  --fgColor-success: #1a7f37;
+  --bgColor-default: #ffffff;
+  --borderColor-muted: #d1d9e0b3;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --fgColor-default: #1f2328;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #0969da33;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-light-theme=light] {
+  /* light */
+  color-scheme: light;
+  --fgColor-danger: #d1242f;
+  --bgColor-attention-muted: #fff8c5;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-attention-muted: #d4a72c66;
+  --borderColor-danger-emphasis: #cf222e;
+  --borderColor-default: #d1d9e0;
+  --borderColor-done-emphasis: #8250df;
+  --borderColor-success-emphasis: #1a7f37;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-string-regexp: #116329;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #953800;
+  --fgColor-accent: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-done: #8250df;
+  --fgColor-muted: #59636e;
+  --fgColor-success: #1a7f37;
+  --bgColor-default: #ffffff;
+  --borderColor-muted: #d1d9e0b3;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --fgColor-default: #1f2328;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #0969da33;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-dark-theme=light] {
+  /* light */
+  color-scheme: light;
+  --fgColor-danger: #d1242f;
+  --bgColor-attention-muted: #fff8c5;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-attention-muted: #d4a72c66;
+  --borderColor-danger-emphasis: #cf222e;
+  --borderColor-default: #d1d9e0;
+  --borderColor-done-emphasis: #8250df;
+  --borderColor-success-emphasis: #1a7f37;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-string-regexp: #116329;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #953800;
+  --fgColor-accent: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-done: #8250df;
+  --fgColor-muted: #59636e;
+  --fgColor-success: #1a7f37;
+  --bgColor-default: #ffffff;
+  --borderColor-muted: #d1d9e0b3;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --fgColor-default: #1f2328;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #0969da33;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+.markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode=light][data-light-theme=light_colorblind],
+[data-color-mode=dark][data-dark-theme=light_colorblind],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=light_colorblind],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=light_colorblind] {
+  /* light_colorblind */
+  color-scheme: light;
+  --bgColor-attention-muted: #fff8c5;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-attention-muted: #d4a72c66;
+  --borderColor-danger-emphasis: #bc4c00;
+  --borderColor-default: #d1d9e0;
+  --borderColor-done-emphasis: #8250df;
+  --borderColor-success-emphasis: #0969da;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #762c00;
+  --color-prettylights-syntax-carriage-return-bg: #bc4c00;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-invalid-illegal-bg: #762c00;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #bc4c00;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-deleted-bg: #fff1e5;
+  --color-prettylights-syntax-markup-deleted-text: #762c00;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
+  --color-prettylights-syntax-markup-inserted-text: #0550ae;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #953800;
+  --fgColor-accent: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-danger: #bc4c00;
+  --fgColor-done: #8250df;
+  --fgColor-muted: #59636e;
+  --fgColor-success: #0969da;
+  --bgColor-default: #ffffff;
+  --borderColor-muted: #d1d9e0b3;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --fgColor-default: #1f2328;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #0969da33;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-light-theme=light_colorblind] {
+  /* light_colorblind */
+  color-scheme: light;
+  --bgColor-attention-muted: #fff8c5;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-attention-muted: #d4a72c66;
+  --borderColor-danger-emphasis: #bc4c00;
+  --borderColor-default: #d1d9e0;
+  --borderColor-done-emphasis: #8250df;
+  --borderColor-success-emphasis: #0969da;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #762c00;
+  --color-prettylights-syntax-carriage-return-bg: #bc4c00;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-invalid-illegal-bg: #762c00;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #bc4c00;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-deleted-bg: #fff1e5;
+  --color-prettylights-syntax-markup-deleted-text: #762c00;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
+  --color-prettylights-syntax-markup-inserted-text: #0550ae;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #953800;
+  --fgColor-accent: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-danger: #bc4c00;
+  --fgColor-done: #8250df;
+  --fgColor-muted: #59636e;
+  --fgColor-success: #0969da;
+  --bgColor-default: #ffffff;
+  --borderColor-muted: #d1d9e0b3;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --fgColor-default: #1f2328;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #0969da33;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-dark-theme=light_colorblind] {
+  /* light_colorblind */
+  color-scheme: light;
+  --bgColor-attention-muted: #fff8c5;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-attention-muted: #d4a72c66;
+  --borderColor-danger-emphasis: #bc4c00;
+  --borderColor-default: #d1d9e0;
+  --borderColor-done-emphasis: #8250df;
+  --borderColor-success-emphasis: #0969da;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #762c00;
+  --color-prettylights-syntax-carriage-return-bg: #bc4c00;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-invalid-illegal-bg: #762c00;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #bc4c00;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-deleted-bg: #fff1e5;
+  --color-prettylights-syntax-markup-deleted-text: #762c00;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
+  --color-prettylights-syntax-markup-inserted-text: #0550ae;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #953800;
+  --fgColor-accent: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-danger: #bc4c00;
+  --fgColor-done: #8250df;
+  --fgColor-muted: #59636e;
+  --fgColor-success: #0969da;
+  --bgColor-default: #ffffff;
+  --borderColor-muted: #d1d9e0b3;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --fgColor-default: #1f2328;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #0969da33;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+.markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode=light][data-light-theme=light_tritanopia],
+[data-color-mode=dark][data-dark-theme=light_tritanopia],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=light_tritanopia],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=light_tritanopia] {
+  /* light_tritanopia */
+  color-scheme: light;
+  --fgColor-danger: #d1242f;
+  --bgColor-attention-muted: #fff8c5;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-attention-muted: #d4a72c66;
+  --borderColor-danger-emphasis: #cf222e;
+  --borderColor-default: #d1d9e0;
+  --borderColor-done-emphasis: #8250df;
+  --borderColor-success-emphasis: #0969da;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-markup-changed-bg: #ffcecb;
+  --color-prettylights-syntax-markup-changed-text: #a40e26;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
+  --color-prettylights-syntax-markup-inserted-text: #0550ae;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #a40e26;
+  --fgColor-accent: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-done: #8250df;
+  --fgColor-muted: #59636e;
+  --fgColor-success: #0969da;
+  --bgColor-default: #ffffff;
+  --borderColor-muted: #d1d9e0b3;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --fgColor-default: #1f2328;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #0969da33;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-light-theme=light_tritanopia] {
+  /* light_tritanopia */
+  color-scheme: light;
+  --fgColor-danger: #d1242f;
+  --bgColor-attention-muted: #fff8c5;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-attention-muted: #d4a72c66;
+  --borderColor-danger-emphasis: #cf222e;
+  --borderColor-default: #d1d9e0;
+  --borderColor-done-emphasis: #8250df;
+  --borderColor-success-emphasis: #0969da;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-markup-changed-bg: #ffcecb;
+  --color-prettylights-syntax-markup-changed-text: #a40e26;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
+  --color-prettylights-syntax-markup-inserted-text: #0550ae;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #a40e26;
+  --fgColor-accent: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-done: #8250df;
+  --fgColor-muted: #59636e;
+  --fgColor-success: #0969da;
+  --bgColor-default: #ffffff;
+  --borderColor-muted: #d1d9e0b3;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --fgColor-default: #1f2328;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #0969da33;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-dark-theme=light_tritanopia] {
+  /* light_tritanopia */
+  color-scheme: light;
+  --fgColor-danger: #d1242f;
+  --bgColor-attention-muted: #fff8c5;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-attention-muted: #d4a72c66;
+  --borderColor-danger-emphasis: #cf222e;
+  --borderColor-default: #d1d9e0;
+  --borderColor-done-emphasis: #8250df;
+  --borderColor-success-emphasis: #0969da;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-markup-changed-bg: #ffcecb;
+  --color-prettylights-syntax-markup-changed-text: #a40e26;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
+  --color-prettylights-syntax-markup-inserted-text: #0550ae;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #a40e26;
+  --fgColor-accent: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-done: #8250df;
+  --fgColor-muted: #59636e;
+  --fgColor-success: #0969da;
+  --bgColor-default: #ffffff;
+  --borderColor-muted: #d1d9e0b3;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --fgColor-default: #1f2328;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #0969da33;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+.markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode=light][data-light-theme=light_high_contrast],
+[data-color-mode=dark][data-dark-theme=light_high_contrast],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=light_high_contrast],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=light_high_contrast] {
+  /* light_high_contrast */
+  color-scheme: light;
+  --bgColor-attention-muted: #fcf7be;
+  --bgColor-muted: #e6eaef;
+  --bgColor-neutral-muted: #e0e6eb;
+  --borderColor-accent-emphasis: #0349b4;
+  --borderColor-attention-emphasis: #744500;
+  --borderColor-attention-muted: #b58407;
+  --borderColor-danger-emphasis: #a0111f;
+  --borderColor-default: #454c54;
+  --borderColor-done-emphasis: #622cbc;
+  --borderColor-success-emphasis: #055d20;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #6e011a;
+  --color-prettylights-syntax-carriage-return-bg: #a0111f;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #023b95;
+  --color-prettylights-syntax-constant-other-reference-link: #032563;
+  --color-prettylights-syntax-entity: #512598;
+  --color-prettylights-syntax-entity-tag: #023b95;
+  --color-prettylights-syntax-invalid-illegal-bg: #6e011a;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #a0111f;
+  --color-prettylights-syntax-markup-changed-bg: #ffc67b;
+  --color-prettylights-syntax-markup-changed-text: #702c00;
+  --color-prettylights-syntax-markup-deleted-bg: #fff0ee;
+  --color-prettylights-syntax-markup-deleted-text: #6e011a;
+  --color-prettylights-syntax-markup-heading: #023b95;
+  --color-prettylights-syntax-markup-ignored-bg: #023b95;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #d2fedb;
+  --color-prettylights-syntax-markup-inserted-text: #024c1a;
+  --color-prettylights-syntax-markup-list: #2e1800;
+  --color-prettylights-syntax-meta-diff-range: #622cbc;
+  --color-prettylights-syntax-string: #032563;
+  --color-prettylights-syntax-string-regexp: #024c1a;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #702c00;
+  --fgColor-accent: #023b95;
+  --fgColor-attention: #603700;
+  --fgColor-danger: #86061d;
+  --fgColor-done: #512598;
+  --fgColor-muted: #454c54;
+  --fgColor-success: #024c1a;
+  --bgColor-default: #ffffff;
+  --borderColor-muted: var(--borderColor-default);
+  --color-prettylights-syntax-markup-bold: #010409;
+  --color-prettylights-syntax-markup-italic: #010409;
+  --color-prettylights-syntax-storage-modifier-import: #010409;
+  --fgColor-default: #010409;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #0349b433;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-light-theme=light_high_contrast] {
+  /* light_high_contrast */
+  color-scheme: light;
+  --bgColor-attention-muted: #fcf7be;
+  --bgColor-muted: #e6eaef;
+  --bgColor-neutral-muted: #e0e6eb;
+  --borderColor-accent-emphasis: #0349b4;
+  --borderColor-attention-emphasis: #744500;
+  --borderColor-attention-muted: #b58407;
+  --borderColor-danger-emphasis: #a0111f;
+  --borderColor-default: #454c54;
+  --borderColor-done-emphasis: #622cbc;
+  --borderColor-success-emphasis: #055d20;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #6e011a;
+  --color-prettylights-syntax-carriage-return-bg: #a0111f;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #023b95;
+  --color-prettylights-syntax-constant-other-reference-link: #032563;
+  --color-prettylights-syntax-entity: #512598;
+  --color-prettylights-syntax-entity-tag: #023b95;
+  --color-prettylights-syntax-invalid-illegal-bg: #6e011a;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #a0111f;
+  --color-prettylights-syntax-markup-changed-bg: #ffc67b;
+  --color-prettylights-syntax-markup-changed-text: #702c00;
+  --color-prettylights-syntax-markup-deleted-bg: #fff0ee;
+  --color-prettylights-syntax-markup-deleted-text: #6e011a;
+  --color-prettylights-syntax-markup-heading: #023b95;
+  --color-prettylights-syntax-markup-ignored-bg: #023b95;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #d2fedb;
+  --color-prettylights-syntax-markup-inserted-text: #024c1a;
+  --color-prettylights-syntax-markup-list: #2e1800;
+  --color-prettylights-syntax-meta-diff-range: #622cbc;
+  --color-prettylights-syntax-string: #032563;
+  --color-prettylights-syntax-string-regexp: #024c1a;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #702c00;
+  --fgColor-accent: #023b95;
+  --fgColor-attention: #603700;
+  --fgColor-danger: #86061d;
+  --fgColor-done: #512598;
+  --fgColor-muted: #454c54;
+  --fgColor-success: #024c1a;
+  --bgColor-default: #ffffff;
+  --borderColor-muted: var(--borderColor-default);
+  --color-prettylights-syntax-markup-bold: #010409;
+  --color-prettylights-syntax-markup-italic: #010409;
+  --color-prettylights-syntax-storage-modifier-import: #010409;
+  --fgColor-default: #010409;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #0349b433;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-dark-theme=light_high_contrast] {
+  /* light_high_contrast */
+  color-scheme: light;
+  --bgColor-attention-muted: #fcf7be;
+  --bgColor-muted: #e6eaef;
+  --bgColor-neutral-muted: #e0e6eb;
+  --borderColor-accent-emphasis: #0349b4;
+  --borderColor-attention-emphasis: #744500;
+  --borderColor-attention-muted: #b58407;
+  --borderColor-danger-emphasis: #a0111f;
+  --borderColor-default: #454c54;
+  --borderColor-done-emphasis: #622cbc;
+  --borderColor-success-emphasis: #055d20;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #6e011a;
+  --color-prettylights-syntax-carriage-return-bg: #a0111f;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #023b95;
+  --color-prettylights-syntax-constant-other-reference-link: #032563;
+  --color-prettylights-syntax-entity: #512598;
+  --color-prettylights-syntax-entity-tag: #023b95;
+  --color-prettylights-syntax-invalid-illegal-bg: #6e011a;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #a0111f;
+  --color-prettylights-syntax-markup-changed-bg: #ffc67b;
+  --color-prettylights-syntax-markup-changed-text: #702c00;
+  --color-prettylights-syntax-markup-deleted-bg: #fff0ee;
+  --color-prettylights-syntax-markup-deleted-text: #6e011a;
+  --color-prettylights-syntax-markup-heading: #023b95;
+  --color-prettylights-syntax-markup-ignored-bg: #023b95;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #d2fedb;
+  --color-prettylights-syntax-markup-inserted-text: #024c1a;
+  --color-prettylights-syntax-markup-list: #2e1800;
+  --color-prettylights-syntax-meta-diff-range: #622cbc;
+  --color-prettylights-syntax-string: #032563;
+  --color-prettylights-syntax-string-regexp: #024c1a;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #702c00;
+  --fgColor-accent: #023b95;
+  --fgColor-attention: #603700;
+  --fgColor-danger: #86061d;
+  --fgColor-done: #512598;
+  --fgColor-muted: #454c54;
+  --fgColor-success: #024c1a;
+  --bgColor-default: #ffffff;
+  --borderColor-muted: var(--borderColor-default);
+  --color-prettylights-syntax-markup-bold: #010409;
+  --color-prettylights-syntax-markup-italic: #010409;
+  --color-prettylights-syntax-storage-modifier-import: #010409;
+  --fgColor-default: #010409;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #0349b433;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+.markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode=light][data-light-theme=dark],
+[data-color-mode=dark][data-dark-theme=dark],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=dark],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=dark] {
+  /* dark */
+  color-scheme: dark;
+  --fgColor-accent: #4493f8;
+  --bgColor-attention-muted: #bb800926;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-attention-muted: #bb800966;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-default: #3d444d;
+  --borderColor-done-emphasis: #8957e5;
+  --borderColor-success-emphasis: #238636;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-entity-tag: #7ee787;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #033a16;
+  --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-string-regexp: #7ee787;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #ffa657;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-default: #f0f6fc;
+  --fgColor-done: #ab7df8;
+  --fgColor-muted: #9198a1;
+  --fgColor-success: #3fb950;
+  --borderColor-muted: #3d444db3;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #1f6febb3;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-light-theme=dark] {
+  /* dark */
+  color-scheme: dark;
+  --fgColor-accent: #4493f8;
+  --bgColor-attention-muted: #bb800926;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-attention-muted: #bb800966;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-default: #3d444d;
+  --borderColor-done-emphasis: #8957e5;
+  --borderColor-success-emphasis: #238636;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-entity-tag: #7ee787;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #033a16;
+  --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-string-regexp: #7ee787;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #ffa657;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-default: #f0f6fc;
+  --fgColor-done: #ab7df8;
+  --fgColor-muted: #9198a1;
+  --fgColor-success: #3fb950;
+  --borderColor-muted: #3d444db3;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #1f6febb3;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-dark-theme=dark] {
+  /* dark */
+  color-scheme: dark;
+  --fgColor-accent: #4493f8;
+  --bgColor-attention-muted: #bb800926;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-attention-muted: #bb800966;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-default: #3d444d;
+  --borderColor-done-emphasis: #8957e5;
+  --borderColor-success-emphasis: #238636;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-entity-tag: #7ee787;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #033a16;
+  --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-string-regexp: #7ee787;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #ffa657;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-default: #f0f6fc;
+  --fgColor-done: #ab7df8;
+  --fgColor-muted: #9198a1;
+  --fgColor-success: #3fb950;
+  --borderColor-muted: #3d444db3;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #1f6febb3;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+.markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode=light][data-light-theme=dark_dimmed],
+[data-color-mode=dark][data-dark-theme=dark_dimmed],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=dark_dimmed],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=dark_dimmed] {
+  /* dark_dimmed */
+  color-scheme: dark;
+  --fgColor-accent: #478be6;
+  --bgColor-attention-muted: #ae7c1426;
+  --bgColor-default: #212830;
+  --bgColor-muted: #262c36;
+  --bgColor-neutral-muted: #656c7633;
+  --borderColor-accent-emphasis: #316dca;
+  --borderColor-attention-emphasis: #966600;
+  --borderColor-attention-muted: #ae7c1466;
+  --borderColor-danger-emphasis: #c93c37;
+  --borderColor-default: #3d444d;
+  --borderColor-done-emphasis: #8256d0;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-success-emphasis: #347d39;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #e5534b;
+  --color-prettylights-syntax-carriage-return-bg: #ad2e2c;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #6cb6ff;
+  --color-prettylights-syntax-constant-other-reference-link: #96d0ff;
+  --color-prettylights-syntax-entity: #dcbdfb;
+  --color-prettylights-syntax-entity-tag: #8ddb8c;
+  --color-prettylights-syntax-invalid-illegal-bg: #922323;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #f47067;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #682d0f;
+  --color-prettylights-syntax-markup-changed-text: #ffddb0;
+  --color-prettylights-syntax-markup-deleted-bg: #78191b;
+  --color-prettylights-syntax-markup-deleted-text: #ffd8d3;
+  --color-prettylights-syntax-markup-heading: #316dca;
+  --color-prettylights-syntax-markup-ignored-bg: #255ab2;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #1b4721;
+  --color-prettylights-syntax-markup-inserted-text: #b4f1b4;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #eac55f;
+  --color-prettylights-syntax-meta-diff-range: #dcbdfb;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #96d0ff;
+  --color-prettylights-syntax-string-regexp: #8ddb8c;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #f69d50;
+  --fgColor-attention: #c69026;
+  --fgColor-danger: #e5534b;
+  --fgColor-default: #d1d7e0;
+  --fgColor-done: #986ee2;
+  --fgColor-muted: #9198a1;
+  --fgColor-success: #57ab5a;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #316dcab3;
+}
+
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-light-theme=dark_dimmed] {
+  /* dark_dimmed */
+  color-scheme: dark;
+  --fgColor-accent: #478be6;
+  --bgColor-attention-muted: #ae7c1426;
+  --bgColor-default: #212830;
+  --bgColor-muted: #262c36;
+  --bgColor-neutral-muted: #656c7633;
+  --borderColor-accent-emphasis: #316dca;
+  --borderColor-attention-emphasis: #966600;
+  --borderColor-attention-muted: #ae7c1466;
+  --borderColor-danger-emphasis: #c93c37;
+  --borderColor-default: #3d444d;
+  --borderColor-done-emphasis: #8256d0;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-success-emphasis: #347d39;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #e5534b;
+  --color-prettylights-syntax-carriage-return-bg: #ad2e2c;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #6cb6ff;
+  --color-prettylights-syntax-constant-other-reference-link: #96d0ff;
+  --color-prettylights-syntax-entity: #dcbdfb;
+  --color-prettylights-syntax-entity-tag: #8ddb8c;
+  --color-prettylights-syntax-invalid-illegal-bg: #922323;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #f47067;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #682d0f;
+  --color-prettylights-syntax-markup-changed-text: #ffddb0;
+  --color-prettylights-syntax-markup-deleted-bg: #78191b;
+  --color-prettylights-syntax-markup-deleted-text: #ffd8d3;
+  --color-prettylights-syntax-markup-heading: #316dca;
+  --color-prettylights-syntax-markup-ignored-bg: #255ab2;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #1b4721;
+  --color-prettylights-syntax-markup-inserted-text: #b4f1b4;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #eac55f;
+  --color-prettylights-syntax-meta-diff-range: #dcbdfb;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #96d0ff;
+  --color-prettylights-syntax-string-regexp: #8ddb8c;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #f69d50;
+  --fgColor-attention: #c69026;
+  --fgColor-danger: #e5534b;
+  --fgColor-default: #d1d7e0;
+  --fgColor-done: #986ee2;
+  --fgColor-muted: #9198a1;
+  --fgColor-success: #57ab5a;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #316dcab3;
+}
+
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-dark-theme=dark_dimmed] {
+  /* dark_dimmed */
+  color-scheme: dark;
+  --fgColor-accent: #478be6;
+  --bgColor-attention-muted: #ae7c1426;
+  --bgColor-default: #212830;
+  --bgColor-muted: #262c36;
+  --bgColor-neutral-muted: #656c7633;
+  --borderColor-accent-emphasis: #316dca;
+  --borderColor-attention-emphasis: #966600;
+  --borderColor-attention-muted: #ae7c1466;
+  --borderColor-danger-emphasis: #c93c37;
+  --borderColor-default: #3d444d;
+  --borderColor-done-emphasis: #8256d0;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-success-emphasis: #347d39;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #e5534b;
+  --color-prettylights-syntax-carriage-return-bg: #ad2e2c;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #6cb6ff;
+  --color-prettylights-syntax-constant-other-reference-link: #96d0ff;
+  --color-prettylights-syntax-entity: #dcbdfb;
+  --color-prettylights-syntax-entity-tag: #8ddb8c;
+  --color-prettylights-syntax-invalid-illegal-bg: #922323;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #f47067;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #682d0f;
+  --color-prettylights-syntax-markup-changed-text: #ffddb0;
+  --color-prettylights-syntax-markup-deleted-bg: #78191b;
+  --color-prettylights-syntax-markup-deleted-text: #ffd8d3;
+  --color-prettylights-syntax-markup-heading: #316dca;
+  --color-prettylights-syntax-markup-ignored-bg: #255ab2;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #1b4721;
+  --color-prettylights-syntax-markup-inserted-text: #b4f1b4;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #eac55f;
+  --color-prettylights-syntax-meta-diff-range: #dcbdfb;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #96d0ff;
+  --color-prettylights-syntax-string-regexp: #8ddb8c;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #f69d50;
+  --fgColor-attention: #c69026;
+  --fgColor-danger: #e5534b;
+  --fgColor-default: #d1d7e0;
+  --fgColor-done: #986ee2;
+  --fgColor-muted: #9198a1;
+  --fgColor-success: #57ab5a;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #316dcab3;
+}
+
+}
+
+.markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode=light][data-light-theme=dark_colorblind],
+[data-color-mode=dark][data-dark-theme=dark_colorblind],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=dark_colorblind],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=dark_colorblind] {
+  /* dark_colorblind */
+  color-scheme: dark;
+  --fgColor-accent: #4493f8;
+  --bgColor-attention-muted: #bb800926;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-attention-muted: #bb800966;
+  --borderColor-danger-emphasis: #bd561d;
+  --borderColor-default: #3d444d;
+  --borderColor-done-emphasis: #8957e5;
+  --borderColor-success-emphasis: #1f6feb;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #db6d28;
+  --color-prettylights-syntax-carriage-return-bg: #9b4215;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-entity-tag: #a5d6ff;
+  --color-prettylights-syntax-invalid-illegal-bg: #762d0a;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #f0883e;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-deleted-bg: #5a1e02;
+  --color-prettylights-syntax-markup-deleted-text: #ffdfb6;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #0c2d6b;
+  --color-prettylights-syntax-markup-inserted-text: #cae8ff;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-string-regexp: #a5d6ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #ffa657;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f0883e;
+  --fgColor-default: #f0f6fc;
+  --fgColor-done: #ab7df8;
+  --fgColor-muted: #9198a1;
+  --fgColor-success: #58a6ff;
+  --borderColor-muted: #3d444db3;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #1f6febb3;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-light-theme=dark_colorblind] {
+  /* dark_colorblind */
+  color-scheme: dark;
+  --fgColor-accent: #4493f8;
+  --bgColor-attention-muted: #bb800926;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-attention-muted: #bb800966;
+  --borderColor-danger-emphasis: #bd561d;
+  --borderColor-default: #3d444d;
+  --borderColor-done-emphasis: #8957e5;
+  --borderColor-success-emphasis: #1f6feb;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #db6d28;
+  --color-prettylights-syntax-carriage-return-bg: #9b4215;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-entity-tag: #a5d6ff;
+  --color-prettylights-syntax-invalid-illegal-bg: #762d0a;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #f0883e;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-deleted-bg: #5a1e02;
+  --color-prettylights-syntax-markup-deleted-text: #ffdfb6;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #0c2d6b;
+  --color-prettylights-syntax-markup-inserted-text: #cae8ff;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-string-regexp: #a5d6ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #ffa657;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f0883e;
+  --fgColor-default: #f0f6fc;
+  --fgColor-done: #ab7df8;
+  --fgColor-muted: #9198a1;
+  --fgColor-success: #58a6ff;
+  --borderColor-muted: #3d444db3;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #1f6febb3;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-dark-theme=dark_colorblind] {
+  /* dark_colorblind */
+  color-scheme: dark;
+  --fgColor-accent: #4493f8;
+  --bgColor-attention-muted: #bb800926;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-attention-muted: #bb800966;
+  --borderColor-danger-emphasis: #bd561d;
+  --borderColor-default: #3d444d;
+  --borderColor-done-emphasis: #8957e5;
+  --borderColor-success-emphasis: #1f6feb;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #db6d28;
+  --color-prettylights-syntax-carriage-return-bg: #9b4215;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-entity-tag: #a5d6ff;
+  --color-prettylights-syntax-invalid-illegal-bg: #762d0a;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #f0883e;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-deleted-bg: #5a1e02;
+  --color-prettylights-syntax-markup-deleted-text: #ffdfb6;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #0c2d6b;
+  --color-prettylights-syntax-markup-inserted-text: #cae8ff;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-string-regexp: #a5d6ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #ffa657;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f0883e;
+  --fgColor-default: #f0f6fc;
+  --fgColor-done: #ab7df8;
+  --fgColor-muted: #9198a1;
+  --fgColor-success: #58a6ff;
+  --borderColor-muted: #3d444db3;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #1f6febb3;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+.markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode=light][data-light-theme=dark_tritanopia],
+[data-color-mode=dark][data-dark-theme=dark_tritanopia],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=dark_tritanopia],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=dark_tritanopia] {
+  /* dark_tritanopia */
+  color-scheme: dark;
+  --fgColor-accent: #4493f8;
+  --bgColor-attention-muted: #bb800926;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-attention-muted: #bb800966;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-default: #3d444d;
+  --borderColor-done-emphasis: #8957e5;
+  --borderColor-success-emphasis: #1f6feb;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-entity-tag: #a5d6ff;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #67060c;
+  --color-prettylights-syntax-markup-changed-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #0c2d6b;
+  --color-prettylights-syntax-markup-inserted-text: #cae8ff;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-string-regexp: #a5d6ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #ffa198;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-default: #f0f6fc;
+  --fgColor-done: #ab7df8;
+  --fgColor-muted: #9198a1;
+  --fgColor-success: #58a6ff;
+  --borderColor-muted: #3d444db3;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #1f6febb3;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-light-theme=dark_tritanopia] {
+  /* dark_tritanopia */
+  color-scheme: dark;
+  --fgColor-accent: #4493f8;
+  --bgColor-attention-muted: #bb800926;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-attention-muted: #bb800966;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-default: #3d444d;
+  --borderColor-done-emphasis: #8957e5;
+  --borderColor-success-emphasis: #1f6feb;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-entity-tag: #a5d6ff;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #67060c;
+  --color-prettylights-syntax-markup-changed-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #0c2d6b;
+  --color-prettylights-syntax-markup-inserted-text: #cae8ff;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-string-regexp: #a5d6ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #ffa198;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-default: #f0f6fc;
+  --fgColor-done: #ab7df8;
+  --fgColor-muted: #9198a1;
+  --fgColor-success: #58a6ff;
+  --borderColor-muted: #3d444db3;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #1f6febb3;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-dark-theme=dark_tritanopia] {
+  /* dark_tritanopia */
+  color-scheme: dark;
+  --fgColor-accent: #4493f8;
+  --bgColor-attention-muted: #bb800926;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-attention-muted: #bb800966;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-default: #3d444d;
+  --borderColor-done-emphasis: #8957e5;
+  --borderColor-success-emphasis: #1f6feb;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-entity-tag: #a5d6ff;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #67060c;
+  --color-prettylights-syntax-markup-changed-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #0c2d6b;
+  --color-prettylights-syntax-markup-inserted-text: #cae8ff;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-string-regexp: #a5d6ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #ffa198;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-default: #f0f6fc;
+  --fgColor-done: #ab7df8;
+  --fgColor-muted: #9198a1;
+  --fgColor-success: #58a6ff;
+  --borderColor-muted: #3d444db3;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #1f6febb3;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+.markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode=light][data-light-theme=dark_high_contrast],
+[data-color-mode=dark][data-dark-theme=dark_high_contrast],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=dark_high_contrast],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=dark_high_contrast] {
+  /* dark_high_contrast */
+  color-scheme: dark;
+  --fgColor-accent: #74b9ff;
+  --fgColor-done: #d3abff;
+  --fgColor-success: #2bd853;
+  --bgColor-attention-muted: #edaa2726;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #212830;
+  --borderColor-accent-emphasis: #409eff;
+  --borderColor-attention-emphasis: #e09b13;
+  --borderColor-attention-muted: #edaa27;
+  --borderColor-danger-emphasis: #ff6a69;
+  --borderColor-default: #b7bdc8;
+  --borderColor-done-emphasis: #b87fff;
+  --borderColor-success-emphasis: #09b43a;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #ff8080;
+  --color-prettylights-syntax-carriage-return-bg: #ff4445;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #91cbff;
+  --color-prettylights-syntax-constant-other-reference-link: #addcff;
+  --color-prettylights-syntax-entity: #dbb7ff;
+  --color-prettylights-syntax-entity-tag: #72f088;
+  --color-prettylights-syntax-invalid-illegal-bg: #e82a2f;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #ff9492;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #a74c00;
+  --color-prettylights-syntax-markup-changed-text: #ffe1b4;
+  --color-prettylights-syntax-markup-deleted-bg: #cc1421;
+  --color-prettylights-syntax-markup-deleted-text: #ffdedb;
+  --color-prettylights-syntax-markup-heading: #409eff;
+  --color-prettylights-syntax-markup-ignored-bg: #318bf8;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #007728;
+  --color-prettylights-syntax-markup-inserted-text: #acf7b6;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #fbd669;
+  --color-prettylights-syntax-meta-diff-range: #dbb7ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #addcff;
+  --color-prettylights-syntax-string-regexp: #72f088;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #ffb757;
+  --fgColor-attention: #f0b72f;
+  --fgColor-danger: #ff9492;
+  --fgColor-muted: #b7bdc8;
+  --bgColor-default: #010409;
+  --borderColor-muted: var(--borderColor-default);
+  --fgColor-default: #ffffff;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #194fb1b3;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-light-theme=dark_high_contrast] {
+  /* dark_high_contrast */
+  color-scheme: dark;
+  --fgColor-accent: #74b9ff;
+  --fgColor-done: #d3abff;
+  --fgColor-success: #2bd853;
+  --bgColor-attention-muted: #edaa2726;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #212830;
+  --borderColor-accent-emphasis: #409eff;
+  --borderColor-attention-emphasis: #e09b13;
+  --borderColor-attention-muted: #edaa27;
+  --borderColor-danger-emphasis: #ff6a69;
+  --borderColor-default: #b7bdc8;
+  --borderColor-done-emphasis: #b87fff;
+  --borderColor-success-emphasis: #09b43a;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #ff8080;
+  --color-prettylights-syntax-carriage-return-bg: #ff4445;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #91cbff;
+  --color-prettylights-syntax-constant-other-reference-link: #addcff;
+  --color-prettylights-syntax-entity: #dbb7ff;
+  --color-prettylights-syntax-entity-tag: #72f088;
+  --color-prettylights-syntax-invalid-illegal-bg: #e82a2f;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #ff9492;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #a74c00;
+  --color-prettylights-syntax-markup-changed-text: #ffe1b4;
+  --color-prettylights-syntax-markup-deleted-bg: #cc1421;
+  --color-prettylights-syntax-markup-deleted-text: #ffdedb;
+  --color-prettylights-syntax-markup-heading: #409eff;
+  --color-prettylights-syntax-markup-ignored-bg: #318bf8;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #007728;
+  --color-prettylights-syntax-markup-inserted-text: #acf7b6;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #fbd669;
+  --color-prettylights-syntax-meta-diff-range: #dbb7ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #addcff;
+  --color-prettylights-syntax-string-regexp: #72f088;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #ffb757;
+  --fgColor-attention: #f0b72f;
+  --fgColor-danger: #ff9492;
+  --fgColor-muted: #b7bdc8;
+  --bgColor-default: #010409;
+  --borderColor-muted: var(--borderColor-default);
+  --fgColor-default: #ffffff;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #194fb1b3;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --borderRadius-medium: 0.375rem;
+  --borderWidth-thin: 0.0625rem;
+  --stack-padding-condensed: 0.5rem;
+  --stack-padding-normal: 1rem;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --h6-size: 0.75rem;
+  --fgColor-accent: Highlight;
+}
+
+[data-color-mode='system'][data-dark-theme=dark_high_contrast] {
+  /* dark_high_contrast */
+  color-scheme: dark;
+  --fgColor-accent: #74b9ff;
+  --fgColor-done: #d3abff;
+  --fgColor-success: #2bd853;
+  --bgColor-attention-muted: #edaa2726;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #212830;
+  --borderColor-accent-emphasis: #409eff;
+  --borderColor-attention-emphasis: #e09b13;
+  --borderColor-attention-muted: #edaa27;
+  --borderColor-danger-emphasis: #ff6a69;
+  --borderColor-default: #b7bdc8;
+  --borderColor-done-emphasis: #b87fff;
+  --borderColor-success-emphasis: #09b43a;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #ff8080;
+  --color-prettylights-syntax-carriage-return-bg: #ff4445;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #91cbff;
+  --color-prettylights-syntax-constant-other-reference-link: #addcff;
+  --color-prettylights-syntax-entity: #dbb7ff;
+  --color-prettylights-syntax-entity-tag: #72f088;
+  --color-prettylights-syntax-invalid-illegal-bg: #e82a2f;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-keyword: #ff9492;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-changed-bg: #a74c00;
+  --color-prettylights-syntax-markup-changed-text: #ffe1b4;
+  --color-prettylights-syntax-markup-deleted-bg: #cc1421;
+  --color-prettylights-syntax-markup-deleted-text: #ffdedb;
+  --color-prettylights-syntax-markup-heading: #409eff;
+  --color-prettylights-syntax-markup-ignored-bg: #318bf8;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-inserted-bg: #007728;
+  --color-prettylights-syntax-markup-inserted-text: #acf7b6;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-list: #fbd669;
+  --color-prettylights-syntax-meta-diff-range: #dbb7ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-string: #addcff;
+  --color-prettylights-syntax-string-regexp: #72f088;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+  --color-prettylights-syntax-variable: #ffb757;
+  --fgColor-attention: #f0b72f;
+  --fgColor-danger: #ff9492;
+  --fgColor-muted: #b7bdc8;
+  --bgColor-default: #010409;
+  --borderColor-muted: var(--borderColor-default);
+  --fgColor-default: #ffffff;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
+  --selection-bgColor: #194fb1b3;
+  --borderColor-neutral-muted: var(--borderColor-muted);
+}
+
+}
+
+/*!
+  Theme: GitHub
+  Description: Highlight-js port of github.com theme
+  Author: github.com
+  Maintainer: @SNDST00M, @mjbvz
+  Updated: 2021-12-08
+*/
+.markdown-body pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 16px;
+}
+
+.markdown-body code.hljs {
+  padding: 3px 5px;
+}
+
+/*!
+  Theme: GitHub
+  Description: Theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/
+.markdown-body .hljs,
+.markdown-body pre > code {
+  color: var(--color-fg-default);
+  background: var(--color-canvas-subtle);
+}
+
+.markdown-body .hljs-function,
+.markdown-body .hljs-params {
+  color: var(--color-fg-default);
+}
+
+.markdown-body .hljs-doctag,
+.markdown-body .hljs-keyword,
+.markdown-body .hljs-meta .hljs-keyword,
+.markdown-body .hljs-template-tag,
+.markdown-body .hljs-template-variable,
+.markdown-body .hljs-type,
+.markdown-body .hljs-variable.language_ {
+  color: var(--color-prettylights-syntax-keyword);
+}
+
+.markdown-body .hljs-title,
+.markdown-body .hljs-title.class_,
+.markdown-body .hljs-title.class_.inherited__,
+.markdown-body .hljs-title.function_ {
+  color: var(--color-prettylights-syntax-entity);
+}
+
+.markdown-body .hljs-attr,
+.markdown-body .hljs-attribute,
+.markdown-body .hljs-literal,
+.markdown-body .hljs-meta,
+.markdown-body .hljs-number,
+.markdown-body .hljs-operator,
+.markdown-body .hljs-selector-attr,
+.markdown-body .hljs-selector-class,
+.markdown-body .hljs-selector-id,
+.markdown-body .hljs-variable {
+  color: var(--color-prettylights-syntax-constant);
+}
+
+.markdown-body .hljs-meta .hljs-string,
+.markdown-body .hljs-regexp,
+.markdown-body .hljs-string {
+  color: var(--color-prettylights-syntax-string);
+}
+
+.markdown-body .hljs-built_in,
+.markdown-body .hljs-symbol {
+  color: var(--color-prettylights-syntax-variable);
+}
+
+.markdown-body .hljs-code,
+.markdown-body .hljs-comment,
+.markdown-body .hljs-formula {
+  color: var(--color-prettylights-syntax-comment);
+}
+
+.markdown-body .hljs-name,
+.markdown-body .hljs-quote,
+.markdown-body .hljs-selector-pseudo,
+.markdown-body .hljs-selector-tag {
+  color: var(--color-prettylights-syntax-entity-tag);
+}
+
+.markdown-body .hljs-subst {
+  color: var(--color-prettylights-syntax-constant);
+}
+
+.markdown-body .hljs-section {
+  color: var(--color-prettylights-syntax-markup-heading);
+  font-weight: bold;
+}
+
+.markdown-body .hljs-bullet {
+  color: var(--color-prettylights-syntax-markup-list);
+}
+
+.markdown-body .hljs-emphasis {
+  color: var(--color-prettylights-syntax-constant);
+  font-style: italic;
+}
+
+.markdown-body .hljs-strong {
+  color: var(--color-prettylights-syntax-constant);
+  font-weight: bold;
+}
+
+.markdown-body .hljs-addition {
+  color: var(--color-prettylights-syntax-markup-inserted-text);
+  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
+}
+
+.markdown-body .hljs-deletion {
+  color: var(--color-prettylights-syntax-markup-deleted-text);
+  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <div
+            class="github-markdown-body"
+            data-color-mode="auto"
+            data-light-theme="light"
+            data-dark-theme="dark"
+        >
+            <div class="github-markdown-content"><h1 id="linear-algebra">Linear Algebra</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#linear-algebra">Linear Algebra</a>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#pre-requisites">Pre-Requisites</a></li>
+<li><a href="#what-is-linear-algebra">What is Linear Algebra?</a></li>
+<li><a href="#scalar">Scalar</a></li>
+<li><a href="#systems-of-linear-equations">Systems of Linear Equations</a>
+<ul>
+<li><a href="#matrix-form">Matrix Form</a></li>
+</ul>
+</li>
+<li><a href="#matrices">Matrices</a></li>
+<li><a href="#singular-matrix">Singular Matrix</a></li>
+<li><a href="#shape">Shape</a></li>
+<li><a href="#square-matrix">Square Matrix</a></li>
+<li><a href="#matrix-operations">Matrix Operations</a>
+<ul>
+<li><a href="#matrix-addition">Matrix Addition</a></li>
+<li><a href="#matrix-multiplication">Matrix Multiplication</a></li>
+</ul>
+</li>
+<li><a href="#numpy">NumPy</a></li>
+<li><a href="#matrix-properties">Matrix Properties</a>
+<ul>
+<li><a href="#associativity">Associativity</a></li>
+<li><a href="#distributivity">Distributivity</a></li>
+<li><a href="#multiplication-with-identity">Multiplication with Identity</a></li>
+</ul>
+</li>
+<li><a href="#inverse-matrix">Inverse Matrix</a></li>
+<li><a href="#transpose">Transpose</a></li>
+<li><a href="#row-echelon-form">Row-Echelon Form</a></li>
+<li><a href="#gaussian-elimination">Gaussian Elimination</a></li>
+<li><a href="#augmented-matrix">Augmented Matrix</a></li>
+<li><a href="#pivot">Pivot</a></li>
+<li><a href="#vector-space">Vector Space</a></li>
+<li><a href="#linear-combination">Linear Combination</a></li>
+<li><a href="#span">Span</a></li>
+<li><a href="#linear-independence">Linear (In)dependence</a></li>
+<li><a href="#generating-set-aka-spanning-set">Generating Set (aka 'Spanning Set')</a></li>
+<li><a href="#basis">Basis</a></li>
+<li><a href="#dimension-of-vector-space">Dimension Of Vector Space</a></li>
+<li><a href="#determinant">Determinant</a></li>
+<li><a href="#rank">Rank</a></li>
+<li><a href="#linear-mapping">Linear Mapping</a></li>
+<li><a href="#kernel-aka-nullspace">Kernel (aka NullSpace)</a></li>
+<li><a href="#image">Image</a></li>
+<li><a href="#domain">Domain</a></li>
+<li><a href="#co-domain">Co-Domain</a></li>
+<li><a href="#neutral-element">Neutral Element</a></li>
+<li><a href="#rank-nullity-theorem">Rank-Nullity Theorem</a></li>
+<li><a href="#ball-of-a-norm">Ball of a norm</a></li>
+<li><a href="#norms">Norms</a></li>
+<li><a href="#inner--outer--dot-product">Inner , Outer &amp; Dot Product</a></li>
+<li><a href="#projection-matrix">Projection Matrix</a></li>
+<li><a href="#symmetric-positive-definite-matrices">Symmetric, Positive Definite Matrices</a></li>
+<li><a href="#codirected--collinear">Codirected &amp; Collinear</a></li>
+<li><a href="#eigenvectors--eigenvector">Eigenvectors &amp; Eigenvector</a>
+<ul>
+<li><a href="#eigenvalue-intuition">Eigenvalue Intuition</a></li>
+</ul>
+</li>
+<li><a href="#cauchy-schwarz-inequality">Cauchy-Schwarz Inequality</a></li>
+<li><a href="#orthogonality">Orthogonality</a></li>
+<li><a href="#orthogonal-matrix">Orthogonal Matrix</a></li>
+<li><a href="#orthonormal-basisonb">Orthonormal Basis(ONB)</a></li>
+<li><a href="#orthogonal-compliment">Orthogonal Compliment</a></li>
+<li><a href="#inner-product-of-functions">Inner Product of Functions</a></li>
+<li><a href="#definition">Definition</a></li>
+<li><a href="#properties">Properties</a></li>
+<li><a href="#orthogonality-of-functions">Orthogonality of Functions</a></li>
+<li><a href="#norm-of-a-function">Norm of a Function</a></li>
+<li><a href="#applications-in-aiml">Applications in AI/ML</a></li>
+<li><a href="#orthogonal-projection">Orthogonal Projection</a></li>
+<li><a href="#projection">Projection</a></li>
+<li><a href="#rotations">Rotations</a></li>
+<li><a href="#trace-of-a-matrix">Trace of a Matrix</a></li>
+<li><a href="#covariance-matrix">Covariance Matrix</a></li>
+<li><a href="#characteristic-polynomials">Characteristic Polynomials</a></li>
+<li><a href="#cholesky-decomposition">Cholesky Decomposition</a></li>
+<li><a href="#diagonal-matrix">Diagonal matrix</a></li>
+<li><a href="#eigendecomposition">Eigendecomposition</a></li>
+<li><a href="#jordan-matrix">Jordan Matrix</a></li>
+<li><a href="#singular-value-decompositionsvd">Singular Value Decomposition(SVD)</a></li>
+<li><a href="#matrix-approximation">Matrix Approximation</a></li>
+<li><a href="#matrix-phylogeny">Matrix Phylogeny</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="pre-requisites">Pre-Requisites</h2>
+<ul>
+<li>Python installed</li>
+<li>NumPy (v2.2.6 used in examples)</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Examples can be found in the <code>sub-folder</code>.</p>
+</blockquote>
+<hr>
+<h2 id="what-is-linear-algebra">What is Linear Algebra?</h2>
+<p><strong>Linear Algebra</strong> is the study of vectors and the rules to manipulate them.<br>
+Vectors are denoted as <em>→v</em> or <em>v</em>. Numerical data is represented as <strong>vectors</strong>, and a table of such data is represented as a <strong>matrix</strong>.</p>
+<p><em>Why it matters:</em> Machine Learning data is often stored as vectors or matrices. Operations like dot products, matrix multiplication, eigenvalues, and transformations are used everywhere (e.g., linear regression, PCA, neural networks).</p>
+<hr>
+<h2 id="scalar">Scalar</h2>
+<p>A scalar is either a <em>real number or a complex number</em>.</p>
+<hr>
+<p>Matrices consisting of a <em>single row or a single column</em> are called <em>row vectors or column vectors</em>, respectively
+The symbol <em>Ai∗</em> is used to denote the <em>ith row</em>, while <em>A∗j</em> denotes the <em>jth column of matrix A</em></p>
+<hr>
+<h2 id="systems-of-linear-equations">Systems of Linear Equations</h2>
+<p>A <strong>system of linear equations</strong> is a collection of two or more linear equations involving the same unknown variables, considered simultaneously. Each equation represents a linear relationship, and the goal is to find values of the variables that satisfy all equations at once.</p>
+<p>Mathematically:</p>
+<p>[
+\begin{aligned}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &amp;= b_1 \
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n &amp;= b_2 \
+\vdots \
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n &amp;= b_m
+\end{aligned}
+]</p>
+<ul>
+<li>(x_1, \dots, x_n) — unknown variables</li>
+<li>(a_{ij}) — coefficients</li>
+<li>(b_i) — constants</li>
+</ul>
+<h3 id="matrix-form">Matrix Form</h3>
+<p>[
+\mathbf{A}\mathbf{x} = \mathbf{b}
+]</p>
+<ul>
+<li><strong>A</strong>: coefficient matrix</li>
+<li><strong>x</strong>: vector of unknowns</li>
+<li><strong>b</strong>: outcome or constraint vector</li>
+</ul>
+<p><em>Geometric Interpretation:</em> Each linear equation defines a line or plane. The solution set is the intersection of these lines/planes (a point, line, or empty set).</p>
+<hr>
+<h2 id="matrices">Matrices</h2>
+<p>A <strong>matrix</strong> is a rectangular arrangement of numbers, symbols, or expressions organized into rows and columns.</p>
+<p>[
+\mathbf{A} =
+\begin{bmatrix}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
+\end{bmatrix}
+]</p>
+<ul>
+<li>(a_{ij}): element in the (i)-th row and (j)-th column</li>
+<li>(m): number of rows</li>
+<li>(n): number of columns</li>
+</ul>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>Collection of vectors (rows or columns)</li>
+<li>Linear transformation mapping input vectors to output vectors</li>
+<li>Compact representation of a system of linear equations</li>
+</ul>
+<hr>
+<h2 id="singular-matrix">Singular Matrix</h2>
+<p>It is a matrix that does not have an inverse.</p>
+<p>A matrix is <em>singular</em> if:</p>
+<ul>
+<li>det(A) = 0</li>
+</ul>
+<p>if the matrix is singular, then the linear system may have no solution or infinitely many solutions but cannot have a unique solution .</p>
+<hr>
+<h2 id="shape">Shape</h2>
+<p>Matrix <em>A</em> is said to have shape or size <em>m x n</em>(pronounced as m by n) whenever <em>A</em> has exactly <em>m</em> rows and <em>n</em> columns.</p>
+<hr>
+<h2 id="square-matrix">Square Matrix</h2>
+<p>Whenever <em>m = n</em>,<em>A</em> is called a <em>square matrix</em> otherwise <em>rectangular</em>.</p>
+<hr>
+<h2 id="matrix-operations">Matrix Operations</h2>
+<h3 id="matrix-addition">Matrix Addition</h3>
+<p>For matrices of the same shape:</p>
+<p>[
+A + B =
+\begin{bmatrix}
+a_{11}+b_{11} &amp; \cdots &amp; a_{1n}+b_{1n} \
+\vdots &amp; \ddots &amp; \vdots \
+a_{m1}+b_{m1} &amp; \cdots &amp; a_{mn}+b_{mn}
+\end{bmatrix}
+]</p>
+<h3 id="matrix-multiplication">Matrix Multiplication</h3>
+<p>For (A_{m \times n}) and (B_{n \times p}):</p>
+<p>[
+C = AB
+]</p>
+<blockquote>
+<p>Note: Matrix multiplication is <strong>not element-wise</strong>. Element-wise multiplication is the <strong>Hadamard product</strong>.</p>
+</blockquote>
+<p><strong>Example:</strong>
+[
+A = \begin{bmatrix} 1 &amp; 2 \ 3 &amp; 4 \end{bmatrix}, \quad B = \begin{bmatrix} 5 &amp; 6 \ 7 &amp; 8 \end{bmatrix}
+]
+[
+AB = \begin{bmatrix} (1<em>5 + 2</em>7) &amp; (1<em>6 + 2</em>8) \ (3<em>5 + 4</em>7) &amp; (3<em>6 + 4</em>8) \end{bmatrix} = \begin{bmatrix} 19 &amp; 22 \ 43 &amp; 50 \end{bmatrix}
+]</p>
+<hr>
+<h2 id="numpy">NumPy</h2>
+<p><strong>NumPy</strong> provides multi-dimensional arrays and operations for numerical computing:</p>
+<ul>
+<li>Vectors, matrices, tensors in any dimension</li>
+<li>Element-wise operations: +, -, *, /</li>
+<li>Linear algebra utilities (<code>np.linalg</code>) — inverse, determinant, eigenvalues, solving systems</li>
+<li>Efficient handling of large datasets</li>
+<li>Foundation for ML libraries (TensorFlow, PyTorch, pandas)</li>
+</ul>
+<p><strong>Example Code:</strong></p>
+<pre><code class="language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment"># Create matrices</span>
+A = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
+B = np.array([[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]])
+
+<span class="hljs-comment"># Matrix multiplication</span>
+C = A @ B  <span class="hljs-comment"># or np.dot(A, B)</span>
+<span class="hljs-built_in">print</span>(C)  <span class="hljs-comment"># Output: [[19 22] [43 50]]</span>
+
+<span class="hljs-comment"># Determinant</span>
+det_A = np.linalg.det(A)
+<span class="hljs-built_in">print</span>(det_A)  <span class="hljs-comment"># Output: -2.0</span>
+</code></pre>
+<h2 id="matrix-properties">Matrix Properties</h2>
+<h3 id="associativity">Associativity</h3>
+<p>[
+\forall A \in \mathbb{R}^{m \times n}, B \in \mathbb{R}^{n \times p}, C \in \mathbb{R}^{p \times q} : (AB)C = A(BC)
+]</p>
+<h3 id="distributivity">Distributivity</h3>
+<p>[
+(A + B)C = AC + BC
+]</p>
+<p>[
+A(C + D) = AC + AD
+]</p>
+<h3 id="multiplication-with-identity">Multiplication with Identity</h3>
+<p>[
+I_m A = A I_n = A \quad (I_m \neq I_n \text{ if } m \neq n)
+]</p>
+<p>A clean ML data pipeline can be described as:</p>
+<ul>
+<li>Each step builds on the previous → data flows cleanly</li>
+<li>Ensures no redundant information, scaled features, and optionally simplified space</li>
+<li>You can add more steps later (feature engineering, outlier removal, splitting train/test)</li>
+</ul>
+<p><strong>In ML Terms</strong>:</p>
+<ol>
+<li>Rank check → ensures full expressive capacity</li>
+<li>Basis vectors → tells you directions of variation</li>
+<li>SVD/PCA → optionally reduce to most informative directions</li>
+<li>Scaling → ensures numerical stability for models</li>
+</ol>
+<hr>
+<h2 id="inverse-matrix">Inverse Matrix</h2>
+<ul>
+<li>Only square matrices can have an inverse</li>
+<li>Exists if determinant ≠ 0 (matrix is <strong>invertible</strong>)</li>
+<li>Denoted (A^{-1}), used in linear regression</li>
+</ul>
+<p>[
+AA^{-1} = I = A^{-1}A
+]</p>
+<p>[
+(AB)^{-1} = B^{-1}A^{-1}, \quad (\text{not } A^{-1}+B^{-1})
+]</p>
+<hr>
+<h2 id="transpose">Transpose</h2>
+<p>(\mathbf{A}^T) — obtained by swapping rows and columns</p>
+<p>Properties:</p>
+<p>[
+(\mathbf{A}^T)^T = \mathbf{A}, \quad (\mathbf{A}\mathbf{B})^T = \mathbf{B}^T\mathbf{A}^T, \quad (\mathbf{A}+\mathbf{B})^T = \mathbf{A}^T + \mathbf{B}^T
+]</p>
+<p><strong>Symmetric Matrix:</strong> Square matrix equal to its transpose</p>
+<ul>
+<li>Covariance and Hessian matrices are symmetric</li>
+<li>Real eigenvalues and orthogonal eigenvectors</li>
+<li>A symmetric matrix S ∈ Rn×n can always be diagonalized.</li>
+</ul>
+<hr>
+<h2 id="row-echelon-form">Row-Echelon Form</h2>
+<ul>
+<li>Non-zero rows above zero rows</li>
+<li>Leading entry (pivot) of each row to the right of the one above</li>
+<li>Entries below pivots = 0</li>
+</ul>
+<p><strong>Reduced Row-Echelon Form:</strong></p>
+<ul>
+<li>Each pivot = 1</li>
+<li>Pivot is the only non-zero in its column</li>
+</ul>
+<hr>
+<h2 id="gaussian-elimination">Gaussian Elimination</h2>
+<p>Method to solve linear systems by transforming a matrix to row-echelon form.</p>
+<p><strong>Steps to execute Gaussian elimination</strong>:
+At each step, the strategy is to focus on one position called the <em>pivotal position</em>,and to eliminate all terms below this position using the three elementary operations. The co-efficient in the pivot position is called <em>pivot/pivotal element</em>. <em><strong>(Only Non-Zero elements can be a pivot)</strong></em></p>
+<ol>
+<li>Step 1 : Eliminate all the terms below the first pivot.</li>
+<li>Select a new pivot.</li>
+<li>Eliminate all terms below the second pivot.</li>
+</ol>
+<p>At the end, we say that the system has been <em>triangularized</em>. A triangular system is easily solved by a simple method known as <em>back-substitution</em>.</p>
+<p>Gaussian elimination = detects exact linear dependence</p>
+<hr>
+<h2 id="augmented-matrix">Augmented Matrix</h2>
+<p>Combines coefficients and constants into one matrix for row <a href="http://operations.It">operations.It</a> is separated by a vertical line <em>|</em> and on the LHS it contains co-efficient and on the RHS it contains the numbers which are solutions to the system. Such a matrix is called <em>Augmented Matrix</em>.</p>
+<p>It is denoted by [A|b].</p>
+<hr>
+<h2 id="pivot">Pivot</h2>
+<p>Leading coefficient of a row (first non-zero number from left), forming a <strong>staircase structure</strong> in row-echelon form.Only nonzero numbers are allowed to be pivot</p>
+<hr>
+<h2 id="vector-space">Vector Space</h2>
+<p>A set (V) with operations <strong>vector addition</strong> and <strong>scalar multiplication</strong> is a vector space over field (F) if it satisfies:</p>
+<ol>
+<li>Closure under addition</li>
+<li>Closure under scalar multiplication</li>
+<li>Addition rules: associativity, commutativity, zero vector, additive inverses</li>
+<li>Scalar rules: distributivity and compatibility with field multiplication</li>
+</ol>
+<hr>
+<h2 id="linear-combination">Linear Combination</h2>
+<p>A linear combination of vectors is formed by multiplying each vector by a scalar and adding the results:</p>
+<p>[
+y = \lambda_1 v_1 + \lambda_2 v_2
+]</p>
+<ul>
+<li>(v_1, v_2 \in V)</li>
+<li>(\lambda_1, \lambda_2 \in \mathbb{R})</li>
+</ul>
+<hr>
+<h2 id="span">Span</h2>
+<p>Span is the set of all vectors you can generate using linear combinations of given vectors — independence is optional</p>
+<p>Mathematically, span can scale up to infinity.</p>
+<p><strong>In ML</strong>:</p>
+<ul>
+<li>Feature space</li>
+<li>PCA direction</li>
+<li>Column space of a data matrix</li>
+<li>Hypothesis spaces in linear models</li>
+</ul>
+<hr>
+<h2 id="linear-independence">Linear (In)dependence</h2>
+<p>It describes whether vectors provide unique information or whether some vectors are redundant.</p>
+<ol>
+<li>Linear Independence: A set of vectors is <em>linearly independent</em> if <em>no vector can be written as a linear combination of the others</em>.</li>
+</ol>
+<p><em>Note</em> : Vectors point to genuinely different direction and each vectors provides new information.</p>
+<ol>
+<li>Linear Dependence: A set of vectors is <em>linearly dependent</em> if at least one vector can be expressed as a linear combination of the others.</li>
+</ol>
+<p><em>Note</em> : Some vectors are redundant and lies in the span of the others.</p>
+<p><em>Quick Checks</em>:</p>
+<ol>
+<li>If a set contains the zero vectors -&gt; <strong>Dependent</strong></li>
+<li>More vectors than the dimension of the space -&gt; <strong>Dependent</strong></li>
+<li>Non-Zero determinant (square matrix)-&gt; <strong>Independent</strong></li>
+</ol>
+<p><em>Practical application rule in ML</em>:</p>
+<p>For linear or regression-based ML, always check for rank/linear dependence.</p>
+<p>For other models, it’s optional but still good practice for optimization and clarity.</p>
+<p><em>Formula</em>:</p>
+<p>[
+\lambda_1 \mathbf{v}_1 + \lambda_2 \mathbf{v}_2 + \dots + \lambda_n \mathbf{v}_n = 0
+]</p>
+<ul>
+<li>If the only solution is (\lambda_1 = \lambda_2 = \dots = \lambda_n = 0), the vectors are <strong>linearly independent</strong>.</li>
+</ul>
+<hr>
+<h2 id="generating-set-aka-spanning-set">Generating Set (aka 'Spanning Set')</h2>
+<p>A <em>Generating Set</em> is set of vectors from which the entire vector space can be built using linear combination.</p>
+<p>Let <strong>(V,+,.)</strong> be a vector space and S = {v1,v2,....,vn} ⊆ V</p>
+<p>S is called a generating set for V if every vector in V can be written as a linear combination of vectors in S.</p>
+<p><strong>Note</strong>: The Span of S is the <em>set of all linear combinations</em> of vectors in S.</p>
+<p><em>Key Equivalence</em>: <strong>span(S) = V</strong></p>
+<hr>
+<h2 id="basis">Basis</h2>
+<p>A basis is a set of vectors that builds the entire space and does so without redundancy.</p>
+<p><em>Mental model</em>:</p>
+<p>Spanning → enough vectors</p>
+<p>Independence → no extra vectors</p>
+<p><em>Enough + no waste = basis.</em></p>
+<p>Number of basis vectors = dimension of the space</p>
+<p><strong>Basis shows two vectors are</strong>;</p>
+<ul>
+<li>Independent = no redundancy</li>
+<li>spans the plane = full coverage</li>
+<li>Minimal = remove one, space collapses into a line</li>
+</ul>
+<p><em>Note</em>: Number of independent rows/columns = dimension of the row space / column space = rank of the matrix</p>
+<hr>
+<h2 id="dimension-of-vector-space">Dimension Of Vector Space</h2>
+<p>The dimension of vector space <em>V</em> is the <em>number of vectors in any basis of V</em>.</p>
+<p><em>The following steps are required to find the dimension of vector</em>:</p>
+<ol>
+<li>Find a basis -&gt; count vectors</li>
+<li>From a spanning set-&gt; remove the redundancy</li>
+<li>From a linearly independent set -&gt; extend if needed</li>
+</ol>
+<p><em>Note</em>: Number of Pivot = Dimension of the span</p>
+<hr>
+<h2 id="determinant">Determinant</h2>
+<p>A determinant is a mathematical object in analysis and solution of systems of linear algebra equation.</p>
+<p>Determinant are only defined for square matrices.</p>
+<p>The <em>determinant</em> of a square matrix is a function that maps <em>A</em> onto a real number.</p>
+<p>it is denoted as <em>det(A)</em> or <em>|A|</em>(the notation mustn't be confused with the absolute value)</p>
+<p>Properties:</p>
+<ul>
+<li>(\det(AB) = \det(A)\det(B))</li>
+<li>(\det(A^{-1}) = 1/\det(A))</li>
+<li>(\det(A^T) = \det(A))</li>
+</ul>
+<p><strong>Geometric Meaning:</strong> Scale factor of linear transformation
+<strong>ML Application:</strong> Volume change in probability distributions</p>
+<p><em><strong>Note</strong></em>:</p>
+<ul>
+<li>for any square matrix A , it holds that A is invertible if and only if <em>det(A) ̸= 0</em>.</li>
+<li><em>Sarrus’s rule</em>: It is a special method which can easily obtain the determinant of <em>3 x 3</em> matrix only.
+- <strong>Step 1 of Sarrus’s rule</strong>: Write the first two columns again to the right of the matrix.
+- <strong>Step 2 of Sarrus’s rule</strong>: Sum the product of the diagonals going down the right.
+- <strong>Step 3 of Sarrus’s rule</strong>: Sum the products of the diagonal going up right.
+- <strong>Step 4 of Sarrus’s rule</strong>: Determinant = (down the right sum) - (up right sum) [<strong>det(A)=(aei+bfg+cdh)−(ceg+afh+bdi)</strong>]</li>
+<li>for a triangular matrix, the determinant is the product of the diagonal elements.</li>
+<li><strong>Laplace Expansion</strong>: for any <em>n x n</em> matrix, the determinant can be expressed along any row or column.
+- For each element in that row/column:
+- 1. Multiply the element by the determinant of the smaller matrix left after removing that element’s row and column (called the minor).
+- 2. Multiply by +1 or -1, depending on the position. The rule is: If the <em>sum of the row and column numbers is even → + , If odd → -</em>.</li>
+<li>Swapping rows/columns changes the sign of <em>det(A).</em></li>
+</ul>
+<hr>
+<h2 id="rank">Rank</h2>
+<p>The number of linearly independent columns of a matrix <strong>A ∈ Rmxn</strong> equals the number of linearly independent rows and is called the rank of <em>A</em> and is denoted by <em>rk(A)</em>
+<em>Note:</em> rk(A)=number of linearly independent rows=number of linearly independent columns</p>
+<p><em>Also equals:</em></p>
+<ul>
+<li>number of pivots</li>
+<li>dimension of column space</li>
+<li>dimension of image</li>
+</ul>
+<p><em>Mental shortcut</em>:</p>
+<ul>
+<li>Zero row never counts</li>
+<li>Rank = number of pivots</li>
+<li>Row rank = column rank</li>
+</ul>
+<hr>
+<h2 id="linear-mapping">Linear Mapping</h2>
+<p>For vector spaces <em>V</em>,<em>W</em>, a mapping <em>Φ: V -&gt; W</em> is called linear mapping (or a vector homomorphism/linear transformation) if it preserves vector addition and scalar multiplication.</p>
+<p><em>To prove a map is linear</em>:</p>
+<ul>
+<li>
+<p>Take arbitrary 𝑢,𝑣 ∈ 𝑉</p>
+</li>
+<li>
+<p>Take arbitrary scalars α,β</p>
+</li>
+<li>
+<p>Verify the below equation -</p>
+</li>
+</ul>
+<ol>
+<li>
+<p><strong>Preservation of scalar multiplication</strong>
+[
+\Phi(\alpha v) = \alpha,\Phi(v)
+]</p>
+</li>
+<li>
+<p><strong>Preservation of addition</strong>
+[
+\Phi(u + v) = \Phi(u) + \Phi(v)
+]</p>
+</li>
+</ol>
+<p>If both properties hold, then (\Phi) preserves the vector space structure and is called a <strong>linear mapping</strong>.</p>
+<p><strong>Types of linear mapping</strong>:</p>
+<ul>
+<li><em>Injective Mapping (One To One)</em>: No two different inputs maps to the same output.</li>
+<li><em>Surjective (Onto)</em>: Every element in the target space W is hit by <strong>at least one input from</strong> V.</li>
+<li><em>Bijective (combination of both = Surjective + Injective)</em>: Each input maps to a unique output and every output is used.</li>
+</ul>
+<ol>
+<li><em>Endomorphism</em> = Linear map from a vector space to itself <em>Φ:V→V</em></li>
+<li><em>Automorphism</em> = Linear map from a vector space to itself that is bi-jective. <em>Φ:V→V</em></li>
+<li><em>Isomorphism</em> = Linear map between two different vector spaces that is bi-jective. <em>Φ:V→W</em></li>
+<li><em>Identity Map</em> = Maps every vector to itself.</li>
+</ol>
+<hr>
+<h2 id="kernel-aka-nullspace">Kernel (aka NullSpace)</h2>
+<p>The <em>kernel</em> of Φ is the set of all vectors in the domain that are mapped to the <em>zero(neutral) vector</em> of the co-domain.</p>
+<p><em>Plain Meaning</em>: All input vectors that the linear map destroys/ is lost.</p>
+<p>These vectors carry <em>no output information</em>.The entire direction disappears.</p>
+<p>Null space = set of all vectors that map to zero.
+Its dimension = nullity. Shape depends on rank</p>
+<p><em>ML Intuition</em>: Information that is lost.Features that do not affect the output</p>
+<hr>
+<h2 id="image">Image</h2>
+<p>The <em>image</em> of Φ is the set of all vectors in the co-domain that can be obtained as outputs of Φ.</p>
+<p><em>Plain Meaning</em>: All output that the map can possibly produce.</p>
+<p><em>ML Intuition</em>: Information that is retained.</p>
+<hr>
+<h2 id="domain">Domain</h2>
+<p>The <em>domain</em> of Φ is the vector space <em>V</em> from which inputs are taken.</p>
+<hr>
+<h2 id="co-domain">Co-Domain</h2>
+<p>The <em>Co-Domain</em> of Φ is the vector space <em>W</em> in which outputs lie.</p>
+<hr>
+<h2 id="neutral-element">Neutral Element</h2>
+<p>The <em>neutral element</em> is the zero vector of the co-domain <em>W</em>, satisfying,</p>
+<p><em>w + 0W = w | ∀w∈W</em>;</p>
+<p>In any vector space there is a special vector called the <em>zero-vector</em>.</p>
+<ul>
+<li>it is written as 0</li>
+<li>adding it to any vector changes nothing.</li>
+</ul>
+<hr>
+<h2 id="rank-nullity-theorem">Rank-Nullity Theorem</h2>
+<p>For <em>A ∈ Rmxn</em>,</p>
+<p><strong>rank(A) + nullity(A) = n</strong>;</p>
+<p>where;</p>
+<ul>
+<li>nullity = dimension of null space</li>
+<li>n = number of columns (input dimension)</li>
+</ul>
+<hr>
+<h2 id="ball-of-a-norm">Ball of a norm</h2>
+<p>Given a norm |.|, the <em>unit ball</em> is:</p>
+<p>B={x:∥x∥≤1}</p>
+<p>It simply means, <em>All points whose distance from origin is 1 or less</em>.</p>
+<p>Different norms give different shapes of this ball.</p>
+<hr>
+<h2 id="norms">Norms</h2>
+<p>A <em>norm</em> is just a function that <em>measures the size, length, or magnitude of a vector</em> or in simple terms : It is the distance of the line segment starting from the origin till the end of the line segment.
+It is denoted by <em>||x||</em> and a function ||x|| is a norm if it satisfies:</p>
+<ol>
+<li><em>Positivity</em>: ||x|| &gt; 0 and only ||x|| = 0 when x =0</li>
+<li><em>Scaling</em>: ||αx|| = ||α|| * ||x||</li>
+<li><em>Triangular Inequality</em>: ||x + y|| ≤ ||x||  + ||y||</li>
+</ol>
+<p><strong>Important Norms</strong>:</p>
+<p><strong>L2 Norm (Euclidean Norm)</strong>:
+        It is the most common norm</p>
+<p>∥x∥2​= sqrt(x1<strong>2​+x2</strong>2​+⋯+xn**2​​)</p>
+<p>This is the ordinary distance from the origin.</p>
+<p><strong>Intuition</strong>: Length of the vector in regular geometry.</p>
+<p><strong>Used in ML for</strong>:</p>
+<pre><code>        - Loss Function(MSE)
+        - Weight decay (L2 Regularization)
+        - Gradient Descent
+        - Distance between embeddings.
+</code></pre>
+<p>1. <strong>L1 Norm (Manhattan Norm)</strong>:
+               ||x||1 = |x1| + |x2| + ... + |xn|</p>
+<p><em>Intuition</em> : Distance in a grid like city (Manhattan Blocks)</p>
+<p><em>ML Uses</em>:</p>
+<pre><code>       - Lasso regularization
+       - Sparsity enforcement
+       - Robust Models(less sensitive to outliers)
+</code></pre>
+<p>2.  <strong>L∞ Norm (Max Norm)</strong>:
+                ∥x∥∞​=imax​∣xi​∣</p>
+<p><em>Intuition</em> : Maximum movement in any coordinate.</p>
+<p><em>ML uses</em>:</p>
+<pre><code>    - Adversarial examples
+    - Robust optimization
+    - Infinity-ball constraints
+    - Fast gradient sign methods (FGSM)
+</code></pre>
+<p>3. <em>Lp Norm (General Form)</em>:</p>
+<p>∥x∥p​=(∣x1​∣p+⋯+∣xn​∣p)1/p</p>
+<p><em>Special cases</em>:</p>
+<pre><code>    - p = 1 → L1
+    - p = 2 → L2
+    - p → ∞ → max norm
+</code></pre>
+<p><strong>MATRIX NORMS (Advanced but Important)</strong>:</p>
+<p>For matrices we have:</p>
+<p>1. <em>Frobenius Norm</em></p>
+<p>∥A∥F​=i,j∑​aij2​​</p>
+<p>Used heavily in:</p>
+<pre><code>            - PCA
+            - SVD
+            - Matrix decomposition
+            - Regularization
+</code></pre>
+<p>2. <em>Spectral Norm</em></p>
+<p>Largest singular value.</p>
+<p>Used in:</p>
+<pre><code>    - Stability analysis
+    - Lipschitz constraints
+    - Adversarial robustness
+    - Image Compression
+</code></pre>
+<hr>
+<h2 id="inner--outer--dot-product">Inner , Outer &amp; Dot Product</h2>
+<p>lets say we have have vectors ; u = (u1,u2,u3) &amp; v = (v1,v2,v3)</p>
+<ol>
+<li><strong>Inner Product</strong>:</li>
+</ol>
+<ul>
+<li>Standard inner product in <em>R3</em> = dot product</li>
+<li>Weighted inner product.
+- <em><strong>Inner Product =&gt; ⟨u,v⟩M​=uTMv</strong></em></li>
+</ul>
+<p>where <em>M</em> is a positive definite 3 x 3 matrix.</p>
+<ul>
+<li>Output is a scalar but now its &quot;weighted&quot; according to <em>M</em>.</li>
+<li>Dot Product = special case where <em>M = I</em></li>
+</ul>
+<ol>
+<li><strong>Dot Product</strong>:</li>
+</ol>
+<p>The <em>Dot Product</em> of u and v is;</p>
+<pre><code>  - u . v = u1v1 + u2v2 + u3v3
+- The output is a scalar
+- It measures how much two vectors point in the same direction
+</code></pre>
+<p><strong>Example:</strong> For u = [1, 2, 3] and v = [4, 5, 6], dot product = 1<em>4 + 2</em>5 + 3*6 = 32.</p>
+<ol start="3">
+<li><strong>Outer Product</strong>:</li>
+</ol>
+<p>The outer product of u &amp; v produces;</p>
+<pre><code>  - u ⊗ v = [u1v1 , u1v2 , u1v3]
+             [u2v1 , u2v2 , u2v3]
+             [u3v1 , u3v2 , u3v3]
+  - Output matrix = shape = len(u) x len(v)
+  - Each element (i,j) = ui . vj
+  - Useful in ML for constructing co-variance matrices ,  projection or rank-1 updates.           
+</code></pre>
+<hr>
+<h2 id="projection-matrix">Projection Matrix</h2>
+<p>A <em>Projection Matrix</em> is matrix that takes any vector and drops it onto subspace - keeping the part that belongs to that subspace and discarding the rest.</p>
+<p>A matrix <em>P</em> is a projection matrix uf ut satisfies:</p>
+<ol>
+<li><em>Idempotent</em>:  P^2^ = P</li>
+<li><em>Symmetric</em>: P^T^ = P</li>
+</ol>
+<p>Let <em>A</em> be a matrix whose columns span the subspace;</p>
+<p><strong>Projection Matrix</strong> :  P = <strong>A(A^T^A)^-1^A^T^</strong></p>
+<p>This projects any vector onto the column space of A.</p>
+<p><strong>Importance in ML</strong>:</p>
+<ol>
+<li>
+<p>Linear Regression(core): y^​=Py
+- You are projecting the target onto the space spanned by the features.
+- Regression  = best projection in least-square sense.</p>
+</li>
+<li>
+<p>Dimensionality Reduction: PCA = projection onto top eigenvector subspace.</p>
+</li>
+<li>
+<p>Denoising: Noise lives outside the subspace - projection removes it.</p>
+</li>
+<li>
+<p>Feature selection intuition:</p>
+<ul>
+<li>Keeps direction that matters</li>
+<li>discards the orthogonal junk.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Note</strong>:</p>
+<ol>
+<li>Rank of P = dimension of the subspace</li>
+<li>Eigenvalues of P = only 0 or 1</li>
+</ol>
+<hr>
+<h2 id="symmetric-positive-definite-matrices">Symmetric, Positive Definite Matrices</h2>
+<p>A <strong>symmetric matrix</strong> is a square matrix that equals its transpose: (A = A^T).</p>
+<p>A matrix is <strong>positive definite</strong> if all its eigenvalues are positive, or equivalently, for any non-zero vector (x), (x^T A x &gt; 0).</p>
+<p><strong>Properties:</strong></p>
+<ul>
+<li>Symmetric and positive definite matrices are invertible.</li>
+<li>Used in optimization (e.g., quadratic forms in loss functions).</li>
+<li>Eigenvalues are real and positive.</li>
+</ul>
+<p><strong>Example:</strong>
+[
+A = \begin{bmatrix} 2 &amp; 1 \ 1 &amp; 2 \end{bmatrix}
+]</p>
+<ul>
+<li>Symmetric: Yes.</li>
+<li>Positive definite: Yes (eigenvalues ≈ 3 and 1).</li>
+</ul>
+<p><strong>ML Uses:</strong></p>
+<ul>
+<li>Covariance matrices in statistics.</li>
+<li>Hessian matrices in convex optimization.</li>
+</ul>
+<hr>
+<h2 id="codirected--collinear">Codirected &amp; Collinear</h2>
+<p>Two vectors that point in the same direction are called <em>codirected</em>.
+Two vectors are <em>collinear</em> if they point in the same or the opposite direction.</p>
+<hr>
+<h2 id="eigenvectors--eigenvector">Eigenvectors &amp; Eigenvector</h2>
+<p>For a square matrix A, a non-zero v is an eigenvector if: <strong>Av=λv</strong></p>
+<ul>
+<li>v = eigenvector (direction that  doesn't change under the transformation)</li>
+<li>λ = eigenvalue (how much the vector is stretched or compressed)</li>
+</ul>
+<p><em>Intuition</em>: Eigenvalue = “how much the matrix stretches the space along a specific direction”</p>
+<p><strong>Why eigenvalues matter</strong>:</p>
+<ul>
+<li>Variance along principal directions (PCA)</li>
+<li>Covariance matrix → eigenvectors = principal directions of data</li>
+<li>Eigenvalues = variance along each direction</li>
+<li>Larger eigenvalue → that direction explains more variability in the data</li>
+<li>In PCA, we pick top eigenvectors corresponding to largest eigenvalues</li>
+<li>Dimensionality reduction</li>
+<li>Helps compress data without losing much information</li>
+<li>Directions with tiny eigenvalues → less important → can be dropped</li>
+<li>Stability / dynamics in ML models</li>
+<li>In RNNs, dynamical systems → eigenvalues of weight matrices determine stability</li>
+<li>Neural networks → sometimes used in regularization or understanding feature transformations</li>
+<li>Trace and determinant connection</li>
+<li>Trace = sum of eigenvalues → total variance</li>
+<li>Determinant = product of eigenvalues → volume scaling factor</li>
+</ul>
+<p><strong>Summary for AI/ML</strong>:</p>
+<ul>
+<li>Helps identify principal directions (PCA)</li>
+<li>Guides dimensionality reduction</li>
+<li>Measures stability or influence of transformations in models</li>
+<li>Trace = total variance, eigenvalues = distribution of variance across features</li>
+</ul>
+<p><em>Remark</em>: in linear algebra and software, it is often convention that eigenvalues are sorted in descending order so that the largest eigenvalues are associated eigenvector are called the second eigenvalue and its associated eigenvector and so on.</p>
+<p><em><strong>Eigenvector = direction of variance in feature space ; Eigenvalue = magnitude of variance along that direction</strong></em></p>
+<h3 id="eigenvalue-intuition">Eigenvalue Intuition</h3>
+<p>For a matrix (A) and its eigenvector (v):</p>
+<p>[
+A v = \lambda v
+]</p>
+<ul>
+<li>
+<p>(\lambda) = scalar that <strong>scales the vector</strong> (v)</p>
+<ul>
+<li>(|\lambda| &gt; 1) → vector gets <strong>stretched</strong></li>
+<li>(|\lambda| &lt; 1) → vector gets <strong>compressed</strong></li>
+<li>(\lambda &lt; 0) → vector <strong>flips direction</strong></li>
+</ul>
+</li>
+<li>
+<p>The <strong>vector does not rotate</strong>, only gets scaled along the same line.</p>
+</li>
+<li>
+<p>A matrix and its transpose have the same eigenvalues (including multiplicities). However, their eigenvectors are generally different unless the matrix is symmetric</p>
+</li>
+<li>
+<p>Symmetric, positive definite matrices always have positive, real eigenvalues.</p>
+</li>
+<li>
+<p>Distinct eigenvalues → eigenvectors form a full set of independent directions → you can transform, diagonalize, or project in ML without losing information.</p>
+</li>
+<li>
+<p>A square matrix A ∈ Rn×n is defective if it possesses defective fewer than n linearly independent eigenvectors.</p>
+</li>
+</ul>
+<p><strong>Relationship between eigenvalues and stability in ML models</strong>:</p>
+<ol>
+<li>Eigenvalues &gt; 1 → Exploding gradients</li>
+<li>Eigenvalues &lt; 1 → Vanishing gradients</li>
+<li>Eigenvalues = 1 → Stable propagation</li>
+</ol>
+<hr>
+<h2 id="cauchy-schwarz-inequality">Cauchy-Schwarz Inequality</h2>
+<p>For any two vectors v and u;
+- |dot(u,v)| ≤ ||u|| . ||v||</p>
+<p>Equality holds only when vectors are collinear.</p>
+<p>Cauchy-Schwarz is the theorem that prevents inner products from lying, norms from breaking, and geometry from collapsing.</p>
+<p><strong>What it means</strong>:</p>
+<ul>
+<li>LHS : How much two vectors align (dot product)</li>
+<li>RHS : Maximum possible alignment (lengths multiplied)</li>
+</ul>
+<p><strong>Mental model:</strong>
+You can't get more synergy than the raw materials allow.</p>
+<p><strong>ML or real world application</strong>:</p>
+<ol>
+<li>Co-relation bounds</li>
+<li>Cosine similarity :  used in embeddings,NLP,recommendation systems</li>
+<li>Regularization</li>
+<li>Ensuring distance/norms behave correctly.</li>
+</ol>
+<hr>
+<h2 id="orthogonality">Orthogonality</h2>
+<p>Two vectors <em>x &amp; y</em> are orthogonal if and only if <em>(x,y) = 0</em>.</p>
+<ul>
+<li>It is denoted as <em>x ⊥ y</em></li>
+<li>additionally if ||x|| = ||y|| = 1 then the unit vectors are <em>orthonormal</em>.</li>
+</ul>
+<p>An implication of this definition is that the 0-vector is orthogonal to very vector in the vector space.
+Geometrically, orthogonal vectors have right angle with respect to a specific inner product.</p>
+<hr>
+<h2 id="orthogonal-matrix">Orthogonal Matrix</h2>
+<p>A <em>square matrix A ∈ Rn×n</em> is an orthogonal matrix if and only if its column are orthonormal so that;
+AA^T^ = I = A^T^A</p>
+<p>which implies that : A^-1^ = A^T^</p>
+<p>The inverse is obtained by simply transposing the matrix.</p>
+<p>Orthogonal = rotate (or reflect)</p>
+<hr>
+<h2 id="orthonormal-basisonb">Orthonormal Basis(ONB)</h2>
+<p>A set of vectors in <em>n</em>-dimension vector space <em>V</em> is an orthonormal basis if it satisfies;</p>
+<ol>
+<li>
+<p><em>Orthogonality</em>: Every pair of vectors is perpendicular =&gt; (bi,bj) = 0 for all i not equal to j
+- this means that vectors point in <em>independent directions.</em></p>
+</li>
+<li>
+<p>Unit Length : Every vector has length 1 =&gt; (bi,bj) = 1 for all i</p>
+</li>
+</ol>
+<p>You can turn an orthogonal basis into an ONB by normalizing each vector:
+- bi^ONB^​= bi/∥bi​∥​</p>
+<hr>
+<h2 id="orthogonal-compliment">Orthogonal Compliment</h2>
+<p>If a subspace <em>W</em> of a vector space <em>V</em>, then the orthogonal compliment is <em>the set of vector in V that are orthogonal to every vector W</em>.
+It is denoted as <em>W⊥ (read as 'W perp')</em>.</p>
+<p><em>Key Properties</em>:</p>
+<p>1.Perpendicular to everything in W.
+2. It's a subspace too: W⊥ is always a subspace V
+3. Complimentary dimensions: dim(W) + dim(W⊥) = dim(V)
+4. Unique Decomposition: Every vector v ∈ V can be written uniquely as ; v = w + w⊥ where w ∈ W and w⊥ ∈ W⊥</p>
+<hr>
+<h2 id="inner-product-of-functions">Inner Product of Functions</h2>
+<h2 id="definition">Definition</h2>
+<p>For functions (f(x)) and (g(x)) defined on an interval ([a, b]), the inner product is usually defined as:</p>
+<p>[
+\langle f, g \rangle = \int_a^b f(x) , g(x) , w(x) , dx
+]</p>
+<p>Where (w(x)) is a weight function (often (w(x) = 1), but can vary depending on context, e.g., Legendre or Chebyshev polynomials).</p>
+<p>The integral measures how much (f) and (g) “overlap” over the interval.</p>
+<hr>
+<h2 id="properties">Properties</h2>
+<p>The inner product satisfies:</p>
+<ul>
+<li><strong>Symmetry:</strong> (\langle f, g \rangle = \langle g, f \rangle)</li>
+<li><strong>Linearity:</strong> (\langle af + bg, h \rangle = a \langle f, h \rangle + b \langle g, h \rangle)</li>
+<li><strong>Positive-definite:</strong> (\langle f, f \rangle \ge 0), and (\langle f, f \rangle = 0 \iff f = 0)</li>
+</ul>
+<hr>
+<h2 id="orthogonality-of-functions">Orthogonality of Functions</h2>
+<p>Two functions (f) and (g) are orthogonal if:</p>
+<p>[
+\langle f, g \rangle = 0
+]</p>
+<p><strong>Example:</strong> On ([-π, π]):</p>
+<p>[
+\int_{-π}^{π} \sin(nx) \cos(mx) , dx = 0
+]</p>
+<p>Sine and cosine functions of different frequencies are orthogonal. This is the basis of Fourier series, where any periodic function is expressed as a sum of orthogonal sine and cosine functions.</p>
+<hr>
+<h2 id="norm-of-a-function">Norm of a Function</h2>
+<p>The inner product defines a norm:</p>
+<p>[
+|f| = \sqrt{\langle f, f \rangle} = \sqrt{\int_a^b f(x)^2 , dx}
+]</p>
+<ul>
+<li>Similar to the length of a vector.</li>
+<li>Allows defining distance between functions:</li>
+</ul>
+<p>[
+\text{distance}(f, g) = |f - g|
+]</p>
+<hr>
+<h2 id="applications-in-aiml">Applications in AI/ML</h2>
+<ul>
+<li><strong>Kernel methods:</strong> Inner product in function spaces is the foundation of kernels in SVMs.</li>
+<li><strong>Fourier and wavelet analysis:</strong> Feature extraction and signal processing.</li>
+<li><strong>PCA in function space (Functional PCA):</strong> Functions are treated like vectors; inner products define projections.</li>
+<li><strong>Orthogonal expansions:</strong> Approximating functions using basis functions (like polynomials or trig functions).</li>
+</ul>
+<hr>
+<h2 id="orthogonal-projection">Orthogonal Projection</h2>
+<p>Given;</p>
+<ul>
+<li>A vector v in a vector space V</li>
+<li>A subspace W ⊆ V</li>
+</ul>
+<p>The orthogonal projection of v onto W , denoted <em>projW​(v)</em> is the vector in W that is the closest to v.</p>
+<p>in other words; the difference between v and its projection is perpendicular to the subspace W: <em><strong>v−projW​(v)⊥W</strong></em></p>
+<p><em>Intuition/ML Use</em>:</p>
+<ul>
+<li>Projects higher dimension into lower dimensional subspace</li>
+<li>Minimizes squared error between original vector and its representation subspace.</li>
+<li>Used in linear regression, PCA , dimensionality reduction etc.</li>
+</ul>
+<hr>
+<h2 id="projection">Projection</h2>
+<p>A projection is the closest approximation of a vector within a subspace, obtained by removing the component perpendicular to that subspace.</p>
+<p><em>Intuitively</em>:</p>
+<p>A shadow cast by a vector onto a subspace (line, plane, etc.) along a perpendicular direction.The shadow is the projection.The leftover vector (from the tip of the shadow to the original vector) is perpendicular to the subspace.</p>
+<hr>
+<h2 id="rotations">Rotations</h2>
+<p>A rotation is a linear mapping that rotates a plane by an angle θ about the origin without changing its length.</p>
+<p><em>Properties</em>:</p>
+<ul>
+<li>it preserves length(norms)</li>
+<li>it preserves angles between the vectors</li>
+<li>it does not reflect (determinant = 1 for the rotation matrix)</li>
+<li>the vector keeps its magnitude but points in a new direction</li>
+</ul>
+<p><em>Rotations in R^2^</em>:</p>
+<ol>
+<li>Rotated vectors are linearly independent and are basis of the R^2^.</li>
+<li>The rotations performs a basis of change.</li>
+<li>rotations are linear mappings so that we can express them by a <em>rotation matrix</em>.</li>
+</ol>
+<hr>
+<h2 id="trace-of-a-matrix">Trace of a Matrix</h2>
+<p>The <em>trace</em> of a square matrix <em>A ∈ R^n×n^</em> is defined as the sum of the diagonal elements of A.</p>
+<p>Please note that is is only meaningful in regards of AI/ML when applied to <em>co-variance matrix,Gram matrices, or weight matrices, not raw data tables.</em></p>
+<p><strong>Significance of trace in AI/ML</strong>:</p>
+<ol>
+<li><em>Total variance in data</em>: for a covariance matrix, the trace equals the sum of variance of all features</li>
+<li>shows how much information or <em>spread</em> exists across your dataset.</li>
+<li><em>Eigenvalue Connection</em>: Trace = sum of eigenvalues. and it indicates total strength of principal directions used in PCA,dimensionality reduction and understanding feature importance.</li>
+<li><em>Regularization / loss function</em>: Trace can appear in optimization objectives as a computationally simple scalar summarizing matrix properties.</li>
+</ol>
+<hr>
+<h2 id="covariance-matrix">Covariance Matrix</h2>
+<p>A Covariance matrix is a <em>square matrix</em> that summarizes how features in a dataset vary together.</p>
+<p><strong>Properties</strong>:</p>
+<ol>
+<li>Each diagonal element = variance of that feature</li>
+<li>Each off-diagonal element = covariance between two features
+<ol>
+<li>Positive -&gt; both features increase together</li>
+<li>Negative -&gt; both features decrease together</li>
+<li>Zero -&gt; features are independent</li>
+</ol>
+</li>
+</ol>
+<p>Formally, for a dataset <em>X</em> with <em>n</em> samples and <em>d</em> features:</p>
+<p>-&gt; Cov(X) = (1 / (n-1)) * (X_centered.T @ X_centered)</p>
+<p>Where X_centered = data with mean of each feature subtracted.</p>
+<ul>
+<li>Shape = (d × d) → square</li>
+<li>Diagonal = variance of each feature</li>
+<li>Off-diagonal = feature correlations in magnitude</li>
+</ul>
+<p><strong>Intuition</strong>:</p>
+<ul>
+<li>Spread of each feature</li>
+<li>Diagonal shows how much a feature varies on its own.</li>
+<li>Off-diagonal shows how strongly features move together.</li>
+<li>Large positive → redundancy or strong positive correlation</li>
+<li>Large negative → inverse relationship</li>
+<li>Near-zero → features are independence</li>
+<li><em>Trace connection</em>:Trace of covariance matrix = total variance across all features</li>
+<li><em>Eigenvalue connection</em>: Eigenvectors = principal directions, Eigenvalues = variance along those directions.PCA uses this to reduce dimensions while keeping most variance</li>
+</ul>
+<p><strong>Importance in AI/ML</strong>:</p>
+<ul>
+<li>Dimensionality reduction (PCA): Covariance matrix identifies important directions (high variance)</li>
+<li>Trace = total variance available to capture</li>
+<li>Feature redundancy analysis : Large off-diagonal values → features may be redundant → can drop some</li>
+<li>Data scaling / preprocessing: Covariance magnitude depends on units → standardize features before ML</li>
+<li>Multivariate analysis: Gaussian models, Mahalanobis distance, portfolio variance → all rely on covariance matrices</li>
+</ul>
+<hr>
+<h2 id="characteristic-polynomials">Characteristic Polynomials</h2>
+<p>For a square matrix <em>A</em> of size n x n:
+- Characteristics Polynomial = p(λ) = det(A - λI)</p>
+<p>where; λ = scalar(eigenvalue candidate),I is identity matrix &amp; det = determinant</p>
+<p>Characteristic polynomial is the algebraic tool to find eigenvalues.</p>
+<p><strong>Importance in AI/ML</strong>:</p>
+<ul>
+<li>PCA(Principal Component Analysis)</li>
+<li>PCA = eigenvectors of covariance matrix</li>
+<li>eigenvalues = variance along principal directions</li>
+<li>In neural networks, dynamical systems,control theory -&gt; eigenvalues determine stability</li>
+<li><em>Matrix Diagnostic</em>: Trace = sum of eigenvalues ; Determinant = product of eigenvalues &amp; Characteristic polynomial = full spectrum → complete picture of matrix behavior</li>
+</ul>
+<hr>
+<h2 id="cholesky-decomposition">Cholesky Decomposition</h2>
+<p>It is a way to factor a symmetric, positive definite matrix A <em>into the product of a lower triangular matrix L and its transpose L^T^</em>.</p>
+<p>Formula =&gt; A = LL^T^</p>
+<p>where; L is lower triangular matrix and L^T^ is transpose of L</p>
+<p><em>Requirements</em>: It provides a square root equivalent operation on symmetric,positive matrices that is useful in practice.
+<em>Note</em>: Covariance matrices in ML are always symmetric and positive-definite → Cholesky works perfectly for them.</p>
+<p><strong>Why it matters in AI/ML:</strong></p>
+<ol>
+<li>Solving linear systems efficiently</li>
+<li>Sampling from multivariate normal</li>
+<li>Numerical stability</li>
+<li>Connection to PCA / covariance</li>
+</ol>
+<ul>
+<li>the determinant is simply the product of its diagonal entries.</li>
+</ul>
+<hr>
+<h2 id="diagonal-matrix">Diagonal matrix</h2>
+<p>A diagonal matrix is a matrix that has zero on all-diagonal elements.</p>
+<p>They allow fast computation of determinants,powers and inverses.</p>
+<p>The determinant is the product of its diagonal entries, a matrix power <em>D^k^</em> is given by each diagonal element raised to the power <em>k</em>.</p>
+<p>The inverse <em>D^-1^</em> is the reciprocal of its diagonal elements if all of them are non-zero.</p>
+<p>A diagonal matrix can:</p>
+<ul>
+<li>stretch</li>
+<li>shrink</li>
+<li>flip</li>
+<li>zero out</li>
+</ul>
+<hr>
+<h2 id="eigendecomposition">Eigendecomposition</h2>
+<p>A Square matrix A ∈ R^nxn^ can be factored into <strong>A = PDP^-1^</strong> if and only if the eigenvectors of A form a basis of Rⁿ.</p>
+<p>in simple words, the statement can be described as if a matrix has enough independent directions, the matrix can be rotate the space, stretch along the axes and then rotate back.</p>
+<p>So,</p>
+<ul>
+<li>P⁻¹ → move into eigenvector space</li>
+<li>D → scale along axes</li>
+<li>P → return to original space</li>
+</ul>
+<p>The only requirement is that To build P (n×n invertible), you need n independent columns.</p>
+<p>No inverse = no eigendecomposition.</p>
+<p>The eigenvalue decomposition requires square matrices</p>
+<hr>
+<h2 id="jordan-matrix">Jordan Matrix</h2>
+<p>A Jordan matrix is an almost diagonal matrix where each eigenvalue may have 1’s above the diagonal to account for missing eigenvectors.</p>
+<p>it has the properties such as:</p>
+<ul>
+<li>λ on the diagonal</li>
+<li>1's on the super-diagonal(just above the diagonal)</li>
+<li>everything else is 0</li>
+<li>Every square matrix has a Jordan form.</li>
+</ul>
+<p>when eigendecomposition fails jordan matrix is obtained</p>
+<hr>
+<h2 id="singular-value-decompositionsvd">Singular Value Decomposition(SVD)</h2>
+<p><em>Theorem</em> : Let A ∈ R^m×n^ be a rectangular matrix of rank ∈ [0,min(m,n)].  The SVD of A is a decomposition of the form;</p>
+<p><img src="file:///c:\Users\Aamir Bin Abbas\Desktop\Projects and thesis\Mathematics For Machine Learning\1.Linear Algebra\image.png" alt="SVD decomposition formula: A = UΣVᵀ"></p>
+<p>The diagonal entries σi, i = 1, . . . , r, of Σ are called the singular values
+ui are called the left-singular vectors
+vj are called the right-singular vectors.
+By convention, the singular values are ordered, i.e., σ1 ⩾ σ2 ⩾ σr ⩾ 0.</p>
+<p>Where;</p>
+<ul>
+<li>U = Output Directions (Orthogonal Matrix) -&gt; (rotation) = left singular vectors</li>
+<li>Σ = Scaling Strength (Diagonal Matrix) -&gt; (Stretching) = diagonal</li>
+<li>V^T^ = input directions (Orthogonal Matrix) -&gt; (rotation) = right singular vectors</li>
+</ul>
+<p><strong>What each piece really means</strong>:</p>
+<ol>
+<li><em>V (right singular vectors)</em>: it answers which feature combination matters and which directions contain <a href="http://information.In">information.In</a> ML terms, feature direction.</li>
+<li><em>Σ (singular values)</em>: it signals importance/strength. Big value -&gt; important direction, smaller means noise and zero is for useless.. in ML terms it means signal strength</li>
+<li><em>U (left singular vectors)</em>: Output Directions. it shows how transformed data spreads. Usually less important.</li>
+</ol>
+<p><strong>Critical properties</strong>:</p>
+<ol>
+<li>The SVD always exists for all or any kind of matrix.</li>
+<li>Singular values ≥ 0. there is no negative scaling, therefore clean interpretation:strength only.</li>
+<li>Rank = number of non-zero singular values.</li>
+<li>Best low-rank approximation. this powers image compression,embeddings,recommenders and PCA.</li>
+<li>PCA = SVD</li>
+</ol>
+<p>In simple words, this means, <em>rotate-&gt; scale-&gt; rotate</em>.This is exactly like eigendecomposition but more general.</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>Goal / Problem</th>
+<th>Tool to Use</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reduce dimensionality / correlated features</td>
+<td>PCA / SVD</td>
+<td>Covariance eigenvectors or SVD on data</td>
+</tr>
+<tr>
+<td>Solve linear system (Ax = b) (symmetric + PD)</td>
+<td>Cholesky</td>
+<td>Efficient, stable</td>
+</tr>
+<tr>
+<td>Solve general linear system (Ax = b)</td>
+<td>LU decomposition</td>
+<td>Works always, slightly slower</td>
+</tr>
+<tr>
+<td>Generate correlated samples / whitening</td>
+<td>Cholesky</td>
+<td>Factor covariance matrix</td>
+</tr>
+<tr>
+<td>Compute pseudo-inverse / low-rank approx</td>
+<td>SVD</td>
+<td>Works for non-square, ill-conditioned matrices</td>
+</tr>
+<tr>
+<td>Explore feature variance / redundancy</td>
+<td>Covariance / Trace / Eigenvalues</td>
+<td>Pre-training insight</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="matrix-approximation">Matrix Approximation</h2>
+<p>A matrix A can be thought of as being built from r simple layers, each layer being a rank-1 matrix.</p>
+<p>Each layer is made from left vector ui,a right vector vi and a weight 𝜎i.</p>
+<ul>
+<li>uivi^T^ -&gt; a rank-1 matrix (the simplest kind of matrix like a single direction or pattern)</li>
+<li>𝜎i -&gt; tells you how important this layer is.</li>
+</ul>
+<p><strong>Key Note</strong>:</p>
+<ul>
+<li>You can approximate A by just keeping the top k most important layers:</li>
+<li>This is rank-k approximation, which is exactly what you did with the image using top-k singular values.</li>
+</ul>
+<p>To measure the error/difference between A and its rank-k approximation A(k), we need the notion of a norm.The spectral norm of A is its largest singular value.</p>
+<hr>
+<h2 id="matrix-phylogeny">Matrix Phylogeny</h2>
+<p>Matrix classification hierarchy:</p>
+<p><img src="file:///c:\Users\Aamir Bin Abbas\Desktop\Projects and thesis\Mathematics For Machine Learning\1.Linear Algebra\image-1.png" alt="Matrix Classification Hierarchy"></p>
+<p><strong>Key Insights:</strong></p>
+<ul>
+<li>This hierarchy shows how matrix properties nest</li>
+<li>Most ML matrices start as &quot;Real Matrices&quot;</li>
+<li>Covariance matrices are <strong>symmetric positive definite</strong></li>
+<li>Weight matrices in neural networks are often <strong>non-normal</strong></li>
+<li>SVD works for <strong>all</strong> matrices (even non-square)</li>
+</ul>
+<hr>
+</div>
+        </div>
+            
+            
+        </body>
+        </html>
